@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.hit.inet</groupId>
+    <artifactId>IntervalErrorDetect</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Industrial Internet (IoT) Big Data Security Monitoring Interval Error Detect Plugin</name>
+    <description>
+        ```
+        This plugin (project) is part of the Industrial Internet Big Data Security Monitoring Project.
+        You can recompile this project with Java Develop Kit (JDK) 8 or later version.
+        If you have any questions, please contact our technical team:
+        sugarguan@github
+        yuntong.guan@gmail.com
+        ------------------------------------
+        Compile attentions:
+        1. Please ensure that the JDK version is not less than 1.8.
+        2. Please ensure that the language specification level of the relevant IDE allows lambda expressions
+        3. To ensure synergy between program dependencies, we have globally defined using the 'property' tag, If you
+           need to modify the requirements, please make sure that the dependency association version in the 'properties'
+           tag is valid.
+        4. Please make sure that each dependent version is set and not null. (Default values may introduce new version
+           dependencies leading to unforeseen problems.)
+        ------------------------------------
+        Copyright and other rights:
+        (C) Harbin Institute of Technology and other hosts, All right reserved.
+        ```
+    </description>
+
+    <properties>
+        <application.version>1.0-SNAPSHOT</application.version>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.dependencied.scope>compile</project.dependencied.scope>
+
+        <springboot.websocket.version>2.2.0.RELEASE</springboot.websocket.version>
+        <javaWebsocket.version>1.4.0</javaWebsocket.version>
+        <spark.version>2.4.4</spark.version>
+        <scala.version>2.11</scala.version>
+        <elasticsearch.version>7.4.1</elasticsearch.version>
+        <fastjson.version>1.2.62</fastjson.version>
+        <joda.version>2.10.4</joda.version>
+        <jredis.version>3.1.0</jredis.version>
+        <common-pool.version>2.7.0</common-pool.version>
+        <springboot-data-redis.version>2.2.0.RELEASE</springboot-data-redis.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <product.dependencied.scope>compile</product.dependencied.scope>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>${springboot.websocket.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>ch.qos.logback</artifactId>
+                    <groupId>logback-classic</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ch.qos.logback</artifactId>
+                    <groupId>logback-core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ch.qos.logback</artifactId>
+                    <groupId>logback-parent</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket -->
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>${javaWebsocket.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch/org.elasticsearch-spark-20_2.11 -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-spark-20_${scala.version}</artifactId>
+            <version>${elasticsearch.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artiface/org.elasticsearch.client/transport -->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+            <version>${elasticsearch.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-mllib -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_${scala.version}</artifactId>
+            <version>${spark.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jredis.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>${common-pool.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${springboot-data-redis.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
