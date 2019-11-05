@@ -22,4 +22,6 @@ public class Time {
         lastTime = time;
     }
 
+    public static String timeFormatChinese() {return ";";}
+
 }

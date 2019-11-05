@@ -1,10 +1,8 @@
-package core.learn.index;
+package core.learn.module;
 
 import core.learn.field.CmdField;
-import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
-import scala.Tuple2;
 
 import java.util.*;
 
@@ -23,16 +21,14 @@ public class AmsModule extends Module {
             return ;
 
         pairRDD.groupByKey().values().map(new Function<Iterable<Map<String, Object>>, Object>() {
-                    List<String> fieldString;
-                    int i = 1;
+                    List<String> cmdField;
                     @Override
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
+                        cmdField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            fieldString = new ArrayList<>();
-                            fieldString.add((String) map.get("i_cmd"));
+                            cmdField.add((String) map.get("i_cmd"));
                         }
-                        CmdField.append(fieldString);
-                        i++;
+                        CmdField.append(cmdField);
                         return null;
                     }
                 }

@@ -1,7 +1,6 @@
-package core.learn.index;
+package core.learn.module;
 
 import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.JavaRDD;
 
 import java.io.Serializable;
 import java.util.Map;

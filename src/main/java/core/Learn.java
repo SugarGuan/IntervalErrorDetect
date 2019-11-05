@@ -1,8 +1,7 @@
 package core;
 
 import core.learn.field.CmdField;
-import core.learn.index.AmsModule;
-import org.apache.spark.api.java.JavaRDD;
+import core.learn.module.AmsModule;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import dao.elsaticsearch.ElasticSearch;
@@ -52,12 +51,10 @@ public class Learn implements Serializable {
 
         ams.fieldFillin(esRddMap);
 
-        FPGrowthCal.execute(CmdField.getRDD());
+        FPGrowthCal.execute(CmdField.getRDD().distinct());
 
         b = Time.now();
         System.out.println("Duration :" + (b - a)/1000.0 + " s");
-
-
 
     }
 }
