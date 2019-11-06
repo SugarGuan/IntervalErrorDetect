@@ -7,7 +7,7 @@ import util.Spark.Spark;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SlaveFieldField implements Field {
+public class SlaveField implements Field {
     private static List<List<String>> fieldList = new ArrayList<>();
     private static JavaRDD<List<String>> fieldRDD;
 
