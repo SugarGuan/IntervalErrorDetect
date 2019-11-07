@@ -26,6 +26,8 @@ public class AmsModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         cmdField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
+                            if (cmdField.contains(map.get("i_cmd")))
+                                continue;
                             cmdField.add((String) map.get("i_cmd"));
                         }
                         CmdField.append(cmdField);
@@ -33,5 +35,6 @@ public class AmsModule extends Module {
                     }
                 }
         ).collect();
+
     }
 }

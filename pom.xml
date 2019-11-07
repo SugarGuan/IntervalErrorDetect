@@ -60,16 +60,16 @@
             <version>${springboot.websocket.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>ch.qos.logback</artifactId>
-                    <groupId>logback-classic</groupId>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>ch.qos.logback</artifactId>
-                    <groupId>logback-core</groupId>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>ch.qos.logback</artifactId>
-                    <groupId>logback-parent</groupId>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-parent</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -132,10 +132,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

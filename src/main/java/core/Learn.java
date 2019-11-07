@@ -14,27 +14,46 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Learn implements Serializable {
-    public static int count = 0;
-    public void execute(){
+    private Long count = 0L;
+    private Long queryStartTime = 0L;
+    private Long queryFinishTime = 0L;
+    private Long jobStartTime = 0L;
+    private Long jobFinishTime = 0L;
+
+
+    private Long getQueryStartTime () {
+        return queryStartTime;
+    }
+
+    private Long getQueryFinishTime () {
+        return Time.now();
+    }
+
+    private void setQueryStartTime (Long queryStartTime) {
+        this.queryStartTime = queryStartTime;
+    }
+
+    public void autorun () {
+//        for (int i = 0; i < 100; i++) {
+//            execute();
+//        }
+    }
+
+    public void execute (){
+        jobStartTime = Time.now();
+
         ElasticSearch elasticSearch = new ElasticSearch();
         SparkDataProcess dataProcess = new SparkDataProcess();
         List<String> indices = Config.getElasticsearchIndices();
-//        Config config = new Config();
-//        Long startTime = Time.getLastTime();
-//        Long endTime = Time.getRealTime();
 
-        Long a, b = 0L;
-
-        Long startTime = 1570777465000L;
-        Long endTime = 1572942236007L;
-        Long count = 0L;
-
-        a = Time.now();
+        queryStartTime = getQueryStartTime();
+        queryFinishTime = getQueryFinishTime();
 
         JavaPairRDD<String, Map<String, Object>> esRdd;
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap = new HashMap<>();
+
         for (String index : indices) {
-            esRdd = dataProcess.resetJavaPairRDD(index, elasticSearch.getResult(index, startTime, endTime));
+            esRdd = dataProcess.resetJavaPairRDD(index, elasticSearch.getResult(index, queryStartTime, queryFinishTime));
             if (esRdd == null)
                 continue;
             esRddMap.put(index, esRdd);
@@ -44,17 +63,17 @@ public class Learn implements Serializable {
         if (count <= 500)
             return ;
 
-        Time.SetLastTime(endTime);
+        setQueryStartTime(queryFinishTime);
         System.out.println(count);
 
         AmsModule ams = new AmsModule();
-
         ams.fieldFillin(esRddMap);
 
         FPGrowthCal.execute(CmdField.getRDD().distinct());
 
-        b = Time.now();
-        System.out.println("Duration :" + (b - a)/1000.0 + " s");
 
+        jobFinishTime = Time.now();
+        System.out.println("Duration :" + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
     }
+
 }
