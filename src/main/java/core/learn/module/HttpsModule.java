@@ -27,7 +27,13 @@ public class HttpsModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         rdnField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            rdnField.add((String) map.get("i_rdn"));
+                            String rdn = (String) map.get("i_rdn");
+                            if (rdnField.contains(rdn)) {
+                                RdnField.append(rdnField);
+                                rdnField = new ArrayList<>();
+                            }
+
+                            rdnField.add(rdn);
                         }
                         RdnField.append(rdnField);
                         return null;

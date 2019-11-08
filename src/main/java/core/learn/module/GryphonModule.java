@@ -42,14 +42,64 @@ public class GryphonModule extends Module {
                         datalenField = new ArrayList<>();
 
                         for (Map<String, Object> map: maps) {
-                            frame_typeField.add((String) map.get("i_frame_type"));
-                            srcField.add((String) map.get("i_src"));
-                            src_cidField.add((String) map.get("i_src_cid"));
-                            dstField.add((String) map.get("i_dst"));
-                            dst_chField.add((String) map.get("i_dst_ch"));
-                            cmdField.add((String) map.get("i_cmd"));
-                            contextField.add((String) map.get("i_context"));
-                            datalenField.add((String) map.get("i_datalen"));
+                            String frame_type = (String) map.get("i_frame_type");
+                            String src = (String) map.get("i_src");
+                            String src_cid = Long.toString((Long) map.get("i_src_cid"));
+                            String dst = (String) map.get("i_dst");
+                            String dst_ch = Long.toString((Long) map.get("i_dst_ch"));
+                            String cmd = (String) map.get("i_cmd");
+                            String context = Long.toString((Long) map.get("i_context"));
+                            String datalen = Long.toString((Long) map.get("i_datalen"));
+
+                            if (frame_typeField.contains(frame_type)) {
+                                Frame_typeField.append(frame_typeField);
+                                frame_typeField = new ArrayList<>();
+                            }
+
+                            if (srcField.contains(src)) {
+                                SrcField.append(srcField);
+                                srcField = new ArrayList<>();
+                            }
+
+                            if (src_cidField.contains(src_cid)) {
+                                Src_cidField.append(src_cidField);
+                                src_cidField = new ArrayList<>();
+                            }
+
+                            if (dstField.contains(dst)) {
+                                DstField.append(dstField);
+                                dstField = new ArrayList<>();
+                            }
+
+                            if (dst_chField.contains(dst_ch)) {
+                                Dst_chField.append(dst_chField);
+                                dst_chField = new ArrayList<>();
+                            }
+
+                            if (cmdField.contains(cmd)) {
+                                CmdField.append(cmdField);
+                                cmdField = new ArrayList<>();
+                            }
+
+                            if (contextField.contains(context)) {
+                                ContextField.append(contextField);
+                                contextField = new ArrayList<>();
+                            }
+
+                            if (datalenField.contains(datalen)) {
+                                DatalenField.append(datalenField);
+                                datalenField = new ArrayList<>();
+                            }
+
+
+                            frame_typeField.add(frame_type);
+                            srcField.add(src);
+                            src_cidField.add(src_cid);
+                            dstField.add(dst);
+                            dst_chField.add(dst_ch);
+                            cmdField.add(cmd);
+                            contextField.add(context);
+                            datalenField.add(datalen);
 
                         }
 

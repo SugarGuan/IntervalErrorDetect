@@ -23,17 +23,30 @@ public class EthernetipModule extends Module {
 
         pairRDD.groupByKey().values().map(new Function<Iterable<Map<String, Object>>, Object>() {
                     List<String> cmdField;
-                    List<String> pkt_type;
+                    List<String> pkt_typeField;
                     @Override
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         cmdField = new ArrayList<>();
-                        pkt_type = new ArrayList<>();
+                        pkt_typeField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            cmdField.add((String) map.get("i_cmd"));
-                            pkt_type.add((String) map.get("pkt_type"));
+                            String cmd = (String) map.get("i_cmd");
+                            String pkt_type = (String) map.get("pkt_type");
+
+                            if (cmdField.contains(cmd)){
+                                CmdField.append(cmdField);
+                                cmdField = new ArrayList<>();
+                            }
+
+                            if (pkt_typeField.contains(pkt_type)) {
+                                Pkt_typeField.append(pkt_typeField);
+                                pkt_typeField = new ArrayList<>();
+                            }
+
+                            cmdField.add(cmd);
+                            pkt_typeField.add(pkt_type);
                         }
                         CmdField.append(cmdField);
-                        Pkt_typeField.append(pkt_type);
+                        Pkt_typeField.append(pkt_typeField);
                         return null;
                     }
                 }

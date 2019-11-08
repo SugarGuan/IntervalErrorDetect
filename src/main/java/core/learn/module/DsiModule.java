@@ -33,12 +33,44 @@ public class DsiModule extends Module {
                         reqidField = new ArrayList<>();
                         offset_errcodeField = new ArrayList<>();
                         datalenField = new ArrayList<>();
+
                         for (Map<String, Object> map: maps) {
-                            flagField.add((String) map.get("i_flag"));
-                            cmdField.add((String) map.get("i_cmd"));
-                            reqidField.add((String) map.get("i_reqid"));
-                            offset_errcodeField.add((String) map.get("i_offset_errcode"));
-                            datalenField.add((String) map.get("i_datalen"));
+                            String flag = (String) map.get("i_flag");
+                            String cmd = (String) map.get("i_cmd");
+                            String reqid = Long.toString((Long) map.get("i_reqid"));
+                            String offset_errcode = Long.toString((Long) map.get("i_offset_errcode"));
+                            String datalen = Long.toString((Long) map.get("i_datalen"));
+
+                            if (flagField.contains(flag)) {
+                                FlagField.append(flagField);
+                                flagField = new ArrayList<>();
+                            }
+
+                            if (cmdField.contains(cmd)) {
+                                CmdField.append(cmdField);
+                                cmdField = new ArrayList<>();
+                            }
+
+                            if (reqidField.contains(reqid)) {
+                                ReqidField.append(reqidField);
+                                reqidField = new ArrayList<>();
+                            }
+
+                            if (offset_errcodeField.contains(offset_errcode)) {
+                                Offset_errcodeField.append(offset_errcodeField);
+                                offset_errcodeField = new ArrayList<>();
+                            }
+
+                            if (datalenField.contains(datalen)) {
+                                DatalenField.append(datalenField);
+                                datalenField = new ArrayList<>();
+                            }
+
+                            flagField.add(flag);
+                            cmdField.add(cmd);
+                            reqidField.add(reqid);
+                            offset_errcodeField.add(offset_errcode);
+                            datalenField.add(datalen);
                         }
                         FlagField.append(flagField);
                         CmdField.append(cmdField);

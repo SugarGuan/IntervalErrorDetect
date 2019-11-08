@@ -1,11 +1,13 @@
 package core;
 
 import core.learn.field.CmdField;
-import core.learn.module.AmsModule;
+import core.learn.module.*;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import dao.elsaticsearch.ElasticSearch;
-import dao.file.Config;
+import util.Config;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.Spark.SparkDataProcess;
 import util.Spark.ml.FPGrowthCal;
 import util.Time;
@@ -35,13 +37,13 @@ public class Learn implements Serializable {
 
     public void autorun () {
 //        for (int i = 0; i < 100; i++) {
-//            execute();
-//        }
+////            execute();
+////        }
     }
 
     public void execute (){
         jobStartTime = Time.now();
-
+        Logger logger = LoggerFactory.getLogger(core.Learn.class);
         ElasticSearch elasticSearch = new ElasticSearch();
         SparkDataProcess dataProcess = new SparkDataProcess();
         List<String> indices = Config.getElasticsearchIndices();
@@ -60,20 +62,37 @@ public class Learn implements Serializable {
             count = count + esRdd.count();
         }
 
-        if (count <= 500)
+        if (count <= 500){
+            logger.info("Retrieve records less than 500. Too less records makes system analysis unreliable.");
             return ;
+        }
 
         setQueryStartTime(queryFinishTime);
-        System.out.println(count);
+        logger.info("Retrieve " + count + " records.");
+        System.out.println("Retrieve " + count + " records.");
 
         AmsModule ams = new AmsModule();
         ams.fieldFillin(esRddMap);
+        DsiModule dsi = new DsiModule();
+        dsi.fieldFillin(esRddMap);
+        Eplv1Module eplv1 = new Eplv1Module();
+        eplv1.fieldFillin(esRddMap);
+        EthercatModule ethercat = new EthercatModule();
+        ethercat.fieldFillin(esRddMap);
+        EthernetipModule ethernetip = new EthernetipModule();
+        ethernetip.fieldFillin(esRddMap);
+        GryphonModule gryphone = new GryphonModule();
+        gryphone.fieldFillin(esRddMap);
+        HartipModule hartip = new HartipModule();
+        hartip.fieldFillin(esRddMap);
+        HttpsModule https = new HttpsModule();
+        https.fieldFillin(esRddMap);
 
-        FPGrowthCal.execute(CmdField.getRDD().distinct());
-
+        FPGrowthCal.execute(CmdField.getRDD());
 
         jobFinishTime = Time.now();
-        System.out.println("Duration :" + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
+        logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
+        System.out.println("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
     }
 
 }

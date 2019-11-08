@@ -1,6 +1,6 @@
 package util.Spark;
 
-import dao.file.Config;
+import util.Config;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;

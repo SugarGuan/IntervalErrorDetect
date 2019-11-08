@@ -1,9 +1,6 @@
 package core.learn.module;
 
-import core.learn.field.CmdField;
-import core.learn.field.DestField;
-import core.learn.field.ServiceField;
-import core.learn.field.SourceField;
+import core.learn.field.*;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 
@@ -35,10 +32,32 @@ public class Eplv1Module extends Module {
                         sourceField = new ArrayList<>();
                         cmdField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            serviceField.add((String) map.get("i_service"));
-                            destField.add((String) map.get("i_dest"));
-                            sourceField.add((String) map.get("i_source"));
-                            cmdField.add((String) map.get("i_cmd"));
+                            String service = (String) map.get("i_service");
+                            String dest = Long.toString((Long) map.get("i_dest"));
+                            String source = Long.toString((Long) map.get("i_source"));
+                            String cmd = (String) map.get("i_cmd");
+
+                            if (serviceField.contains(service)) {
+                                ServiceField.append(serviceField);
+                                serviceField = new ArrayList<>();
+                            }
+                            if (destField.contains(dest)) {
+                                DestField.append(destField);
+                                destField = new ArrayList<>();
+                            }
+                            if (sourceField.contains(source)) {
+                                SourceField.append(sourceField);
+                                sourceField = new ArrayList<>();
+                            }
+                            if (cmdField.contains(cmd)) {
+                                CmdField.append(cmdField);
+                                cmdField = new ArrayList<>();
+                            }
+
+                            serviceField.add(service);
+                            destField.add(dest);
+                            sourceField.add(source);
+                            cmdField.add(cmd);
                         }
                         ServiceField.append(serviceField);
                         DestField.append(destField);

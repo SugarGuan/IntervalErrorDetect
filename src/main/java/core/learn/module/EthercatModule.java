@@ -17,7 +17,7 @@ public class EthercatModule extends Module {
     }
 
     @Override
-    public void fieldFillin (Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap) {
+    public void fieldFillin (Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap)  {
         JavaPairRDD<String, Map<String, Object>> pairRDD = this.retrieveRDD(rddMap);
 
         if (pairRDD.count() == 0)
@@ -35,10 +35,35 @@ public class EthercatModule extends Module {
                         slave_addrField = new ArrayList<>();
                         offset_addrField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            cmdField.add((String) map.get("i_cmd"));
-                            cmdstrField.add((String) map.get("i_cmd_str"));
-                            slave_addrField.add((String) map.get("i_slave_addr"));
-                            offset_addrField.add((String) map.get("i_offset_addr"));
+                            String cmd = Long.toString((Long) map.get("i_cmd"));
+                            String cmd_str = (String) map.get("i_cmd_str");
+                            String slave_addr = Long.toString((Long) map.get("i_slave_addr"));
+                            String offset_addr = Long.toString((Long) map.get("i_offset_addr"));
+
+                            if(cmdField.contains(cmd)) {
+                                CmdField.append(cmdField);
+                                cmdField = new ArrayList<>();
+                            }
+
+                            if(cmdstrField.contains(cmd_str)) {
+                                Cmd_strField.append(cmdstrField);
+                                cmdstrField = new ArrayList<>();
+                            }
+
+                            if(slave_addrField.contains(slave_addr)) {
+                                CmdField.append(slave_addrField);
+                                slave_addrField = new ArrayList<>();
+                            }
+
+                            if(offset_addrField.contains(offset_addr)) {
+                                Offset_addrField.append(offset_addrField);
+                                offset_addrField = new ArrayList<>();
+                            }
+
+                            cmdField.add(cmd);
+                            cmdstrField.add(cmd_str);
+                            slave_addrField.add(slave_addr);
+                            offset_addrField.add(offset_addr);
                         }
                         CmdField.append(cmdField);
                         Cmd_strField.append(cmdstrField);

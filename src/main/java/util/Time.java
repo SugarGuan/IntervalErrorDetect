@@ -26,11 +26,11 @@ public class Time {
     public static String timeFormatEnglish(Long timestamp) {
         Long second = timestamp / 1000;
         if (second < 100)
-            return timestamp / 1000.0 + " seconds";
+            return timestamp / 1000.0 + " second(s)";
         Long minute = timestamp / 60000;
         if(minute < 60)
-            return minute + " minute" + (timestamp - 60 * minute ) / 1000.0 + " second";
-        return timestamp / 1000.0 + " seconds";
+            return minute + " minute " + (timestamp - 60 * minute * 1000) / 1000.0 + " second(s)";
+        return timestamp / 1000.0 + " second(s)";
     }
 
 }

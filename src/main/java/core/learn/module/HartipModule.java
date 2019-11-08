@@ -35,10 +35,35 @@ public class HartipModule extends Module {
                         cmdField = new ArrayList<>();
                         protoField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            frame_typeField.add((String) map.get("i_frame_type"));
-                            addrField.add((String) map.get("i_addr"));
-                            cmdField.add((String) map.get("i_cmd"));
-                            protoField.add((String) map.get("i_proto"));
+                            String frame_type = Long.toString((Long) map.get("i_frame_type"));
+                            String addr = Long.toString((Long) map.get("i_addr"));
+                            String cmd = Long.toString((Long) map.get("i_cmd"));
+                            String proto = (String) map.get("i_proto");
+
+                            if (frame_typeField.contains(frame_type)) {
+                                Frame_typeField.append(frame_typeField);
+                                frame_typeField = new ArrayList<>();
+                            }
+
+                            if (addrField.contains(addr)) {
+                                AddrField.append(addrField);
+                                addrField = new ArrayList<>();
+                            }
+
+                            if (cmdField.contains(cmd)) {
+                                CmdField.append(cmdField);
+                                cmdField = new ArrayList<>();
+                            }
+
+                            if (protoField.contains(proto)) {
+                                ProtoField.append(protoField);
+                                protoField = new ArrayList<>();
+                            }
+
+                            frame_typeField.add(frame_type);
+                            addrField.add(addr);
+                            cmdField.add(cmd);
+                            protoField.add(proto);
                         }
                         Frame_typeField.append(frame_typeField);
                         AddrField.append(addrField);
