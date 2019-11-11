@@ -1,6 +1,9 @@
 package util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +14,7 @@ public class Config {
     private static String codingBy = "UTF-8";
     private static Map<String, Integer> dialogIndexMap;
     private static List<String> elasticsearchIndices;
-    private static double hotkeyAppearancePercentage;
+    private static double frequentPercentage = 0;
 
     static {
         defaultSetting();
@@ -35,7 +38,6 @@ public class Config {
     private static void defaultSetting(){
         setDialogIndexMap();
         setElasticSearchIndices();
-        setHotKeyAppearancePercentage();
     }
 
     private static void setDialogIndexMap() {
@@ -149,22 +151,6 @@ public class Config {
         return elasticsearchIndices;
     }
 
-    private static void setHotKeyAppearancePercentage() {
-        String hotKeyAppearancePercentage = retrieve("HotKeyAppearancePercentage");
-        double hotkey = 0;
-        try {
-            if (hotKeyAppearancePercentage != null)
-                hotkey = Double.parseDouble(hotKeyAppearancePercentage);
-        } catch (Exception e) {
-            hotkey = 0.4;
-        }
-        hotkeyAppearancePercentage = hotkey;
-    }
-
-    public static double getHotkeyAppearancePercentage() {
-        return hotkeyAppearancePercentage;
-    }
-
     private static String retrieve(String key) {
         if (configFileAddress == null) {
             return null;
@@ -204,5 +190,16 @@ public class Config {
         if (null != sparkNoticeLevel)
             return sparkNoticeLevel;
         return "OFF";
+    }
+
+    public static double getFrequentPercentage () {
+        String frequentPercentageFromFile = retrieve("fp");
+        if (null == frequentPercentageFromFile)
+            return 0;
+        try {
+            return Double.parseDouble(frequentPercentageFromFile);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

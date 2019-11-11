@@ -7,7 +7,7 @@ import util.Spark.Spark;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vendor_codeField implements Field {
+public class Vendor_codeField extends Field {
     private static List<List<String>> fieldList = new ArrayList<>();
     private static JavaRDD<List<String>> fieldRDD;
 

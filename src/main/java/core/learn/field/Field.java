@@ -1,15 +1,18 @@
 package core.learn.field;
 
-import org.apache.spark.api.java.JavaRDD;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public interface Field {
+public class Field {
 
-    static void append (List<String> strList) {};
+    static List<List<String>>  operationList = new ArrayList<>();
 
-    static List<List<String>> getStrList() { return null; };
+    static void append (List<String> strList) {operationList.add(strList); };
 
-    static JavaRDD<List<String>> getRDD() { return null; };
+    static List<List<String>> getStrList() { return operationList; };
+
+    static void reset() {
+        operationList = new ArrayList<>();
+    }
 
 }

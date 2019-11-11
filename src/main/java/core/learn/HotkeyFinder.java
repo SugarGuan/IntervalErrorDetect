@@ -65,41 +65,30 @@ public class HotkeyFinder {
         if (operationDictionary.isEmpty())
             return;
         for (List<String> temp: operationDictionary.keySet()) {
-            if (temp.size() < minHotkeyLength)
+            if (temp.size() < minHotkeyLength){
+                operationCount = operationCount - operationDictionary.get(temp);
                 operationDictionary.put(temp, 0L);
+            }
+
         }
     }
 
     public List<List<String>> getFrequentOperationList () {
         // (Core)
         // Generate the operation dictionary
-        System.out.println(operationDictionary.size());
-        System.out.println(operationCount);
-        System.out.println(operationLists.size());
-        System.out.println("-------------------");
-
         for (List<String> operationList : operationLists) {
             slideWindowSublist(operationList);
         }
         // remove Too Short Operation List
         removeTooShortOperationList();
         // Re-generate the frequent operation list.
-        double frequentPercentage = 0; //Config.getHotkeyAppearancePercentage();
+        double frequentPercentage = 0.001; //Config.getHotkeyAppearancePercentage();
         int frequentTimes = (int) (frequentPercentage * operationCount);
         operationLists = new ArrayList<>();
-
         for (List<String> key : operationDictionary.keySet()) {
             if (operationDictionary.get(key) >= frequentTimes)
                 operationLists.add(key);
         }
-
-        System.out.println(operationDictionary.size());
-        System.out.println(operationLists.size());
-        System.out.println(operationLists.size());
-        System.out.println(operationCount);
         return operationLists;
-
-
-
     }
 }

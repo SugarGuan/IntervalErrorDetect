@@ -7,7 +7,7 @@ import util.Spark.Spark;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hdr_flagField implements Field {
+public class Hdr_flagField extends Field {
     private static List<List<String>> fieldList = new ArrayList<>();
     private static JavaRDD<List<String>> fieldRDD;
 

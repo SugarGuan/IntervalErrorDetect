@@ -7,7 +7,7 @@ import util.Spark.Spark;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentField implements Field {
+public class ContentField extends Field {
     private static List<List<String>> fieldList = new ArrayList<>();
     private static JavaRDD<List<String>> fieldRDD;
 

@@ -1,8 +1,6 @@
 package core;
 
-import core.learn.HotkeyFinder;
-import core.learn.field.CmdField;
-import core.learn.module.*;
+import core.learn.FieldLearn;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import dao.elsaticsearch.ElasticSearch;
@@ -10,7 +8,6 @@ import util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.Spark.SparkDataProcess;
-import util.Spark.ml.FPGrowthCal;
 import util.Time;
 
 import java.io.Serializable;
@@ -72,37 +69,15 @@ public class Learn implements Serializable {
         logger.info("Retrieve " + count + " records.");
         System.out.println("Retrieve " + count + " records.");
 
-        AmsModule ams = new AmsModule();
-        ams.fieldFillin(esRddMap);
-//        DsiModule dsi = new DsiModule();
-//        dsi.fieldFillin(esRddMap);
-//        Eplv1Module eplv1 = new Eplv1Module();
-//        eplv1.fieldFillin(esRddMap);
-//        EthercatModule ethercat = new EthercatModule();
-//        ethercat.fieldFillin(esRddMap);
-//        EthernetipModule ethernetip = new EthernetipModule();
-//        ethernetip.fieldFillin(esRddMap);
-//        GryphonModule gryphone = new GryphonModule();
-//        gryphone.fieldFillin(esRddMap);
-//        HartipModule hartip = new HartipModule();
-//        hartip.fieldFillin(esRddMap);
-//        HttpsModule https = new HttpsModule();
-//        https.fieldFillin(esRddMap);
+        jobFinishTime = Time.now();
+        System.out.println("Data Retrieve Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
 
-//        FPGrowthCal.execute(CmdField.getRDD());
-        HotkeyFinder f = new HotkeyFinder();
-        if(CmdField.getStrList() == null){
+        FieldLearn learn = new FieldLearn();
+        learn.execute(esRddMap);
 
-            System.out.println("Die");
-            return;
-        }
-        f.appendOperationLists(CmdField.getStrList());
-        System.out.println(f.getFrequentOperationList());
-        System.out.println("----------*******************--------------------");
-        System.out.println(CmdField.getStrList());
         jobFinishTime = Time.now();
         logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
-        System.out.println("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
+        System.out.println("Execute Duration (overall) : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
     }
 
 }
