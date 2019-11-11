@@ -72,10 +72,8 @@ public class Learn implements Serializable {
         logger.info("Retrieve " + count + " records.");
         System.out.println("Retrieve " + count + " records.");
 
-        HotkeyFinder cmdFinder = new HotkeyFinder();
-
         AmsModule ams = new AmsModule();
-        List<List<String> > ams_cmd_list = ams.getHotKeyValue(esRddMap, cmdFinder);
+        ams.fieldFillin(esRddMap);
 //        DsiModule dsi = new DsiModule();
 //        dsi.fieldFillin(esRddMap);
 //        Eplv1Module eplv1 = new Eplv1Module();
@@ -92,7 +90,16 @@ public class Learn implements Serializable {
 //        https.fieldFillin(esRddMap);
 
 //        FPGrowthCal.execute(CmdField.getRDD());
-        System.out.println(ams_cmd_list);
+        HotkeyFinder f = new HotkeyFinder();
+        if(CmdField.getStrList() == null){
+
+            System.out.println("Die");
+            return;
+        }
+        f.appendOperationLists(CmdField.getStrList());
+        System.out.println(f.getFrequentOperationList());
+        System.out.println("----------*******************--------------------");
+        System.out.println(CmdField.getStrList());
         jobFinishTime = Time.now();
         logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
         System.out.println("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
