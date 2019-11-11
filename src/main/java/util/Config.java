@@ -1,9 +1,6 @@
 package util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +11,7 @@ public class Config {
     private static String codingBy = "UTF-8";
     private static Map<String, Integer> dialogIndexMap;
     private static List<String> elasticsearchIndices;
+    private static double hotkeyAppearancePercentage;
 
     static {
         defaultSetting();
@@ -37,6 +35,7 @@ public class Config {
     private static void defaultSetting(){
         setDialogIndexMap();
         setElasticSearchIndices();
+        setHotKeyAppearancePercentage();
     }
 
     private static void setDialogIndexMap() {
@@ -148,6 +147,22 @@ public class Config {
 
     public static List<String> getElasticsearchIndices() {
         return elasticsearchIndices;
+    }
+
+    private static void setHotKeyAppearancePercentage() {
+        String hotKeyAppearancePercentage = retrieve("HotKeyAppearancePercentage");
+        double hotkey = 0;
+        try {
+            if (hotKeyAppearancePercentage != null)
+                hotkey = Double.parseDouble(hotKeyAppearancePercentage);
+        } catch (Exception e) {
+            hotkey = 0.4;
+        }
+        hotkeyAppearancePercentage = hotkey;
+    }
+
+    public static double getHotkeyAppearancePercentage() {
+        return hotkeyAppearancePercentage;
     }
 
     private static String retrieve(String key) {

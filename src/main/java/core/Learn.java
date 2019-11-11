@@ -1,5 +1,6 @@
 package core;
 
+import core.learn.HotkeyFinder;
 import core.learn.field.CmdField;
 import core.learn.module.*;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -71,25 +72,27 @@ public class Learn implements Serializable {
         logger.info("Retrieve " + count + " records.");
         System.out.println("Retrieve " + count + " records.");
 
+        HotkeyFinder cmdFinder = new HotkeyFinder();
+
         AmsModule ams = new AmsModule();
-        ams.fieldFillin(esRddMap);
-        DsiModule dsi = new DsiModule();
-        dsi.fieldFillin(esRddMap);
-        Eplv1Module eplv1 = new Eplv1Module();
-        eplv1.fieldFillin(esRddMap);
-        EthercatModule ethercat = new EthercatModule();
-        ethercat.fieldFillin(esRddMap);
-        EthernetipModule ethernetip = new EthernetipModule();
-        ethernetip.fieldFillin(esRddMap);
-        GryphonModule gryphone = new GryphonModule();
-        gryphone.fieldFillin(esRddMap);
-        HartipModule hartip = new HartipModule();
-        hartip.fieldFillin(esRddMap);
-        HttpsModule https = new HttpsModule();
-        https.fieldFillin(esRddMap);
+        List<List<String> > ams_cmd_list = ams.getHotKeyValue(esRddMap, cmdFinder);
+//        DsiModule dsi = new DsiModule();
+//        dsi.fieldFillin(esRddMap);
+//        Eplv1Module eplv1 = new Eplv1Module();
+//        eplv1.fieldFillin(esRddMap);
+//        EthercatModule ethercat = new EthercatModule();
+//        ethercat.fieldFillin(esRddMap);
+//        EthernetipModule ethernetip = new EthernetipModule();
+//        ethernetip.fieldFillin(esRddMap);
+//        GryphonModule gryphone = new GryphonModule();
+//        gryphone.fieldFillin(esRddMap);
+//        HartipModule hartip = new HartipModule();
+//        hartip.fieldFillin(esRddMap);
+//        HttpsModule https = new HttpsModule();
+//        https.fieldFillin(esRddMap);
 
-        FPGrowthCal.execute(CmdField.getRDD());
-
+//        FPGrowthCal.execute(CmdField.getRDD());
+        System.out.println(ams_cmd_list);
         jobFinishTime = Time.now();
         logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
         System.out.println("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
