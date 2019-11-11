@@ -1,5 +1,7 @@
 package core.learn;
 
+import util.Config;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,42 +10,26 @@ import java.util.HashMap;
 public class HotkeyFinder {
     private int maxHotkeyLength = 20;
     private int minHotkeyLength = 3;
-    private int listCounter = 0;
-    private Map<List<String >, Long> hotkeyDictionary = new HashMap<>();
+    private Long operationCount = 0L;
+    private Map<List<String >, Long> operationDictionary = new HashMap<>();
+    private List<List<String> > operationLists = new ArrayList<>();
 
-    public void setMaxHotkeyLength (int maxHotkeyLength) {
-        this.maxHotkeyLength = maxHotkeyLength;
+    public void appendOperationList (List<String> operationList) {
+        if (operationLists == null)
+            operationLists = new ArrayList<>();
+        operationLists.add(operationList);
     }
 
-    public int getMaxHotkeyLength () {
-        return maxHotkeyLength;
+    public void appendOperationLists (List<List<String>> operationLists) {
+        if (operationLists == null)
+            return;
+        for (List<String> operationList: operationLists)
+            appendOperationList(operationList);
     }
 
-    public void setMinHotkeyLength (int minHotkeyLength) {
-        this.minHotkeyLength = minHotkeyLength;
-    }
-
-    public int getMinHotkeyLength () {
-        return minHotkeyLength;
-    }
-
-    public void setDefaultMaxHotkeyLength () {
-        setMaxHotkeyLength(20);
-    }
-
-    public void setDefaultMinHotkeyLength () {
-        setMinHotkeyLength(3);
-    }
-
-    public void append (List<String> subOperatingList) {
-        listCounter++;
-        if (hotkeyDictionary.get(subOperatingList) != null)
-            hotkeyDictionary.put(subOperatingList, hotkeyDictionary.get(subOperatingList) + 1);
-        else
-            hotkeyDictionary.put(subOperatingList, 1L);
-    }
-
-    public void slidingWindowAction (List<String> operationList) {
+    public void slideWindowSublist (List<String> operationList) {
+        if (operationList.size() == 0)
+            System.out.println("Slide window sublist ERROR : operation list empty");
         List<String> tempList;
         int start = 0;
         int end = 0;
@@ -58,47 +44,62 @@ public class HotkeyFinder {
                     tempList.add(operationList.get(position));
                     position++;
                 }
-                append(tempList);
+                appendOperationMap(tempList);
+//                System.out.println("append + 1");
                 start--;
             }
             end++;
         }
     }
 
+    private void appendOperationMap (List<String> subOperatingList) {
+        operationCount = operationCount + 1;
+        if (operationDictionary.get(subOperatingList) != null)
+            operationDictionary.put(subOperatingList, operationDictionary.get(subOperatingList) + 1);
+        else
+            operationDictionary.put(subOperatingList, 1L);
+    }
+
+
     public void removeTooShortOperationList () {
-        if (hotkeyDictionary.isEmpty())
+        if (operationDictionary.isEmpty())
             return;
-        for (List<String> temp: hotkeyDictionary.keySet()) {
+        for (List<String> temp: operationDictionary.keySet()) {
             if (temp.size() < minHotkeyLength)
-                hotkeyDictionary.put(temp, 0L);
+                operationDictionary.put(temp, 0L);
         }
     }
 
-    public List<List<String> > getMaxAppearanceNoLimition (double percentage) {
-        if (hotkeyDictionary.isEmpty())
-            return null;
+    public List<List<String>> getFrequentOperationList () {
+        // (Core)
+        // Generate the operation dictionary
+        System.out.println(operationDictionary.size());
+        System.out.println(operationCount);
+        System.out.println(operationLists.size());
+        System.out.println("-------------------");
+
+        for (List<String> operationList : operationLists) {
+            slideWindowSublist(operationList);
+        }
+        // remove Too Short Operation List
         removeTooShortOperationList();
-        List<List<String> > result = new ArrayList<>();
-        if (percentage > 1)
-            percentage = 1;
-        if (percentage < 0)
-            percentage = 0;
-        int appearanceTimesLowerLimit = (int) (percentage * listCounter);
-        for (List<String> key : hotkeyDictionary.keySet()) {
-            if (hotkeyDictionary.get(key) >= appearanceTimesLowerLimit)
-                result.add(key);
-        }
-        return result;
-    }
+        // Re-generate the frequent operation list.
+        double frequentPercentage = 0; //Config.getHotkeyAppearancePercentage();
+        int frequentTimes = (int) (frequentPercentage * operationCount);
+        operationLists = new ArrayList<>();
 
-    public List<List<String> > getMaxAppearance (double percentage) {
-        List<List<String> > resultTemp = getMaxAppearanceNoLimition(percentage);
-        List<List<String> > result = new ArrayList<>();
-        for (List<String> key: resultTemp) {
-            if (key.size() >= minHotkeyLength)
-                result.add(key);
+        for (List<String> key : operationDictionary.keySet()) {
+            if (operationDictionary.get(key) >= frequentTimes)
+                operationLists.add(key);
         }
-        return result;
-    }
 
+        System.out.println(operationDictionary.size());
+        System.out.println(operationLists.size());
+        System.out.println(operationLists.size());
+        System.out.println(operationCount);
+        return operationLists;
+
+
+
+    }
 }
