@@ -4,4 +4,4 @@ os:
   - windows
   - osx
 jdk:
-  - oraclejdk8
+  - openjdk8
