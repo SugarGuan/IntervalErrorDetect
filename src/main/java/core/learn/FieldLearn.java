@@ -119,5 +119,6 @@ public class FieldLearn {
         System.out.println(h.getFrequentOperationList());
         h = new HotkeyFinder();
         CmdField.reset();
+        AddrField.reset();
     }
 }

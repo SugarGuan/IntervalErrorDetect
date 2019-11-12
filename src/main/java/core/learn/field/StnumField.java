@@ -20,14 +20,7 @@ public class StnumField extends Field {
         return fieldList;
     }
 
-    private static void generateRDD () {
-        JavaSparkContext sc = Spark.getSparkContext();
-        fieldRDD = sc.parallelize(fieldList);
-    }
-
-    public static JavaRDD<List<String>> getRDD () {
-        if (null == fieldRDD)
-            generateRDD();
-        return fieldRDD;
+    public static void reset() {
+        fieldList = new ArrayList<>();
     }
 }

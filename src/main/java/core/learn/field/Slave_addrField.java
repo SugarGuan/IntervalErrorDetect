@@ -20,15 +20,7 @@ public class Slave_addrField extends Field {
         return fieldList;
     }
 
-    private static void generateRDD () {
-        JavaSparkContext sc = Spark.getSparkContext();
-        fieldRDD = sc.parallelize(fieldList);
+    public static void reset() {
+        fieldList = new ArrayList<>();
     }
-
-    public static JavaRDD<List<String>> getRDD () {
-        if (null == fieldRDD)
-            generateRDD();
-        return fieldRDD;
-    }
-
 }
