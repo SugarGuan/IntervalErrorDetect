@@ -18,6 +18,9 @@ public class SercosiiiModule extends Module {
 //
 //        JavaPairRDD<String, Map<String, Object>> pairRDD = this.retrieveRDD(rddMap);
 //
+//        if (pairRDD == null)
+//            return ;
+
 //        if (pairRDD.count() == 0)
 //            return ;
 //

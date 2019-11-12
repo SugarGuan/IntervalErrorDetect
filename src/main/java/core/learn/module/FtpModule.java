@@ -18,6 +18,9 @@ public class FtpModule extends Module {
     public void fieldFillin (Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap) {
         JavaPairRDD<String, Map<String, Object>> pairRDD = this.retrieveRDD(rddMap);
 
+        if (pairRDD == null)
+            return ;
+
         if (pairRDD.count() == 0)
             return ;
 
