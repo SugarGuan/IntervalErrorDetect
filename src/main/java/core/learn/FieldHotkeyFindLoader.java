@@ -1,6 +1,7 @@
 package core.learn;
 
 import core.learn.field.*;
+import core.learn.module.Module;
 import core.learn.module.cross.index.*;
 import org.apache.spark.api.java.JavaPairRDD;
 

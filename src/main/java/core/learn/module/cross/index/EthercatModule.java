@@ -4,6 +4,7 @@ import core.learn.field.CmdField;
 import core.learn.field.Cmd_strField;
 import core.learn.field.Offset_addrField;
 import core.learn.field.Slave_addrField;
+import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 

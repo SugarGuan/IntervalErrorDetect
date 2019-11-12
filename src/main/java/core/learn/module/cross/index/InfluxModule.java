@@ -2,6 +2,7 @@ package core.learn.module.cross.index;
 
 import core.learn.field.Pkt_typeField;
 import core.learn.field.UrlField;
+import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 

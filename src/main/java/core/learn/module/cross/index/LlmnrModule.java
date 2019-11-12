@@ -2,6 +2,7 @@ package core.learn.module.cross.index;
 
 import core.learn.field.HostnameField;
 import core.learn.field.IpField;
+import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 

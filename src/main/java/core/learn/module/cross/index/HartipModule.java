@@ -4,6 +4,7 @@ import core.learn.field.AddrField;
 import core.learn.field.CmdField;
 import core.learn.field.Frame_typeField;
 import core.learn.field.ProtoField;
+import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 

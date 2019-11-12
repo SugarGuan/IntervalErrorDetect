@@ -1,4 +1,4 @@
-package core.learn.module.cross.index;
+package core.learn.module;
 
 import org.apache.spark.api.java.JavaPairRDD;
 

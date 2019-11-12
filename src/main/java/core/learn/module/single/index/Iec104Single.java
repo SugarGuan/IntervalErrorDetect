@@ -2,7 +2,7 @@ package core.learn.module.single.index;
 
 import core.learn.field.CommaddrField;
 import core.learn.field.InfoaddrField;
-import core.learn.module.cross.index.Module;
+import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 

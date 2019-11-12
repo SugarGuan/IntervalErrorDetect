@@ -2,7 +2,7 @@ package core.learn.module.single.index;
 
 import core.learn.field.CmdField;
 import core.learn.field.Cmd_strField;
-import core.learn.module.cross.index.Module;
+import core.learn.module.Module;
 import core.learn.field.Offset_addrField;
 import core.learn.field.Slave_addrField;
 import org.apache.spark.api.java.JavaPairRDD;

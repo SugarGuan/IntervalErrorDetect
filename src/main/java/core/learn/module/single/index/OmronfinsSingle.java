@@ -1,6 +1,6 @@
 package core.learn.module.single.index;
 
-import core.learn.module.cross.index.Module;
+import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import java.util.Map;
