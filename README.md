@@ -1,5 +1,5 @@
 # IntervalErrorDetect
-[!https://api.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master]
+![Travis-ci](https://api.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)
 
 No more description here.
 
