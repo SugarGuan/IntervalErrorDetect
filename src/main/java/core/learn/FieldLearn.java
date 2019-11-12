@@ -1,7 +1,6 @@
 package core.learn;
 
-import core.learn.field.CmdField;
-import core.learn.field.Field;
+import core.learn.field.*;
 import core.learn.module.*;
 import org.apache.spark.api.java.JavaPairRDD;
 
@@ -102,9 +101,6 @@ public class FieldLearn {
 //        indicesModule.add(sf_haspModule);
 //        indicesModule.add(ssdpModule);
 
-        List<Class<Field>> fields = new ArrayList<>();
-
-
 
         for (Module module: indicesModule) {
             module.fieldFillin(rddMap);
@@ -117,10 +113,20 @@ public class FieldLearn {
 //        for (Field f: list) {
 //            c.gettS
 //        }
-        h.appendOperationLists(CmdField.getStrList());
-        System.out.println(h.getFrequentOperationList());
-        h = new HotkeyFinder();
-        CmdField.reset();
+
+        List<Class<? extends Field>> fields = new ArrayList<>();
+        fields.add(CmdField.class);
+
+        for (Class<? extends Field> c: fields) {
+            System.out.println(c.toString());
+
+        }
+
+
+//        h.appendOperationLists(CmdField.getStrList());
+//        System.out.println(h.getFrequentOperationList());
+//        h = new HotkeyFinder();
+//        CmdField.reset();
 
 
     }

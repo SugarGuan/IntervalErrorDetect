@@ -66,7 +66,6 @@ public class Learn implements Serializable {
         }
 
         setQueryStartTime(queryFinishTime);
-        logger.info("Retrieve " + count + " records.");
         System.out.println("Retrieve " + count + " records.");
 
         jobFinishTime = Time.now();

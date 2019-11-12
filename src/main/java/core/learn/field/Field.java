@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Field {
 
-    static List<List<String>>  operationList = new ArrayList<>();
+    private static List<List<String>>  operationList = new ArrayList<>();
 
-    static void append (List<String> strList) {operationList.add(strList); };
+    public static void append (List<String> strList) {operationList.add(strList); };
 
-    static List<List<String>> getStrList() { return operationList; };
+    public static List<List<String>> getStrList() { return operationList; };
 
-    static void reset() {
+    public static void reset() {
         operationList = new ArrayList<>();
     }
 

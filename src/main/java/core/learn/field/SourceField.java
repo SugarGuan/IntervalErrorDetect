@@ -30,5 +30,4 @@ public class SourceField extends Field {
             generateRDD();
         return fieldRDD;
     }
-
 }
