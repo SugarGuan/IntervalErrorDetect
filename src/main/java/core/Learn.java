@@ -1,6 +1,6 @@
 package core;
 
-import core.learn.FieldLearn;
+import core.learn.FieldHotkeyFindLoader;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import dao.elsaticsearch.ElasticSearch;
@@ -71,7 +71,7 @@ public class Learn implements Serializable {
         jobFinishTime = Time.now();
         System.out.println("Data Retrieve Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
 
-        FieldLearn learn = new FieldLearn();
+        FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
         Map<String, List<List<String>>> result = learn.execute(esRddMap);
         System.out.println(result.get("cmd"));
         jobFinishTime = Time.now();
