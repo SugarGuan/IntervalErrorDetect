@@ -11,8 +11,8 @@ public class HotkeyFinder {
     private int maxHotkeyLength = 20;
     private int minHotkeyLength = 3;
     private Long operationCount = 0L;
-    private Map<List<String >, Long> operationDictionary = new HashMap<>();
-    private List<List<String> > operationLists = new ArrayList<>();
+    public  Map<List<String >, Long> operationDictionary = new HashMap<>();
+    public List<List<String> > operationLists = new ArrayList<>();
 
     public void appendOperationList (List<String> operationList) {
         if (operationLists == null)
@@ -91,4 +91,10 @@ public class HotkeyFinder {
         }
         return operationLists;
     }
+
+    public void reset () {
+        operationDictionary.clear();
+        operationLists.clear();
+    }
+
 }

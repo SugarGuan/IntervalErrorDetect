@@ -4,6 +4,7 @@ import core.learn.FieldLearn;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import dao.elsaticsearch.ElasticSearch;
+import scala.Tuple2;
 import util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +73,8 @@ public class Learn implements Serializable {
         System.out.println("Data Retrieve Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
 
         FieldLearn learn = new FieldLearn();
-        learn.execute(esRddMap);
-
+        Map<String, List<List<String>>> result = learn.execute(esRddMap);
+        System.out.println(result.get("cmd"));
         jobFinishTime = Time.now();
         logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
         System.out.println("Execute Duration (overall) : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
