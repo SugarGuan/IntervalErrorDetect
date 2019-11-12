@@ -4,7 +4,6 @@ import core.learn.FieldLearn;
 import org.apache.spark.api.java.JavaPairRDD;
 
 import dao.elsaticsearch.ElasticSearch;
-import scala.Tuple2;
 import util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
