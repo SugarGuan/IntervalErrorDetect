@@ -1,0 +1,9 @@
+language: java
+os:
+  - linux
+  - windows
+  - osx
+jdk:
+  - oraclejdk8
+  - openjdk10
+  - openjdk11
