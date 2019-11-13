@@ -33,6 +33,8 @@ public class ResultBackup {
             return;
         if (hotKeyLists == null)
             return;
+        if (hotKeyLists.size() == 0)
+            return;
 
         String filePath = dirPath + fileName + ".iedb";
         File file = new File(filePath);
