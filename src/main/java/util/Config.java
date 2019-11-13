@@ -14,6 +14,7 @@ public class Config {
     private static String codingBy = "UTF-8";
     private static Map<String, Integer> dialogIndexMap;
     private static List<String> elasticsearchIndices;
+    private static List<String> elasticsearchFields;
     private static double frequentPercentage = 0;
 
     static {
@@ -38,6 +39,7 @@ public class Config {
     private static void defaultSetting(){
         setDialogIndexMap();
         setElasticSearchIndices();
+        setElasticsearchFields();
     }
 
     private static void setDialogIndexMap() {
@@ -103,8 +105,8 @@ public class Config {
     private static void setElasticSearchIndices() {
         elasticsearchIndices = new ArrayList<>();
         elasticsearchIndices.add("au_pkt_ams");
-//        elasticsearchIndices.add("au_pkt_arp");
-//        elasticsearchIndices.add("au_pkt_bacnet");
+        elasticsearchIndices.add("au_pkt_arp");
+        elasticsearchIndices.add("au_pkt_bacnet");
 //        elasticsearchIndices.add("au_pkt_cip");
 //        elasticsearchIndices.add("au_pkt_coap");
 //        elasticsearchIndices.add("au_pkt_dnp3");
@@ -151,6 +153,104 @@ public class Config {
         return elasticsearchIndices;
     }
 
+    private static void setElasticsearchFields() {
+        elasticsearchFields = new ArrayList<>();
+        elasticsearchFields.add("addr");
+        elasticsearchFields.add("appid");
+        elasticsearchFields.add("cmd");
+        elasticsearchFields.add("cmd_str");
+        elasticsearchFields.add("code");
+        elasticsearchFields.add("commaddr");
+        elasticsearchFields.add("confirm");
+        elasticsearchFields.add("conf_rev");
+        elasticsearchFields.add("content");
+        elasticsearchFields.add("context");
+        elasticsearchFields.add("daddr");
+        elasticsearchFields.add("data");
+        elasticsearchFields.add("datalen");
+        elasticsearchFields.add("data_hdr");
+        elasticsearchFields.add("data_pt_id");
+        elasticsearchFields.add("data_type");
+        elasticsearchFields.add("datset");
+        elasticsearchFields.add("dest");
+        elasticsearchFields.add("dest_str");
+        elasticsearchFields.add("dir");
+        elasticsearchFields.add("domain");
+        elasticsearchFields.add("dst");
+        elasticsearchFields.add("dst_ch");
+        elasticsearchFields.add("entry_num");
+        elasticsearchFields.add("exchange_id");
+        elasticsearchFields.add("ext_ser_id");
+        elasticsearchFields.add("fda_addr");
+        elasticsearchFields.add("flag");
+        elasticsearchFields.add("frame_type");
+        elasticsearchFields.add("func");
+        elasticsearchFields.add("function");
+        elasticsearchFields.add("gocbref");
+        elasticsearchFields.add("goid");
+        elasticsearchFields.add("groupnum");
+        elasticsearchFields.add("hdr_flag");
+        elasticsearchFields.add("hostname");
+        elasticsearchFields.add("infoaddr");
+        elasticsearchFields.add("interface");
+        elasticsearchFields.add("ip");
+        elasticsearchFields.add("json");
+        elasticsearchFields.add("layer");
+        elasticsearchFields.add("loc");
+        elasticsearchFields.add("master");
+        elasticsearchFields.add("method");
+        elasticsearchFields.add("msgid");
+        elasticsearchFields.add("msgtype");
+        elasticsearchFields.add("msgtype_str");
+        elasticsearchFields.add("ndscom");
+        elasticsearchFields.add("node_d");
+        elasticsearchFields.add("node_s");
+        elasticsearchFields.add("n_data");
+        elasticsearchFields.add("offset_addr");
+        elasticsearchFields.add("offset_errcode");
+        elasticsearchFields.add("pkt_type");
+        elasticsearchFields.add("producer_id");
+        elasticsearchFields.add("proto");
+        elasticsearchFields.add("qqid");
+        elasticsearchFields.add("rdn");
+        elasticsearchFields.add("reqid");
+        elasticsearchFields.add("reqtype");
+        elasticsearchFields.add("req_id");
+        elasticsearchFields.add("saddr");
+        elasticsearchFields.add("safezone");
+        elasticsearchFields.add("sender_id");
+        elasticsearchFields.add("server");
+        elasticsearchFields.add("service");
+        elasticsearchFields.add("sid");
+        elasticsearchFields.add("slave");
+        elasticsearchFields.add("slave_addr");
+        elasticsearchFields.add("sn_from");
+        elasticsearchFields.add("sn_to");
+        elasticsearchFields.add("source");
+        elasticsearchFields.add("source_str");
+        elasticsearchFields.add("sqnum");
+        elasticsearchFields.add("src");
+        elasticsearchFields.add("src_cid");
+        elasticsearchFields.add("src_statid");
+        elasticsearchFields.add("status");
+        elasticsearchFields.add("stnum");
+        elasticsearchFields.add("subnet_d");
+        elasticsearchFields.add("subnet_s");
+        elasticsearchFields.add("tel_id");
+        elasticsearchFields.add("test");
+        elasticsearchFields.add("token");
+        elasticsearchFields.add("trans_id");
+        elasticsearchFields.add("type");
+        elasticsearchFields.add("url");
+        elasticsearchFields.add("varnum");
+        elasticsearchFields.add("vendor_code");
+        elasticsearchFields.add("ver");
+    }
+
+    public static List<String> getElasticsearchFields() {
+        return elasticsearchFields;
+    }
+
     private static String retrieve(String key) {
         if (configFileAddress == null) {
             return null;
@@ -184,7 +284,6 @@ public class Config {
         return null;
     }
 
-    //
     public static String getSparkNoticeLevel() {
         String sparkNoticeLevel = retrieve("sparkNoticeLevel");
         if (null != sparkNoticeLevel)

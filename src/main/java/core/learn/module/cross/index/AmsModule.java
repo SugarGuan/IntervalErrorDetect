@@ -1,5 +1,6 @@
 package core.learn.module.cross.index;
 
+import core.learn.HotkeyFinder;
 import core.learn.field.CmdField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -35,5 +36,13 @@ public class AmsModule extends Module {
                     }
                 }
         ).collect();
+    }
+
+    public Map<String, List<List<String>>> learn() {
+        Map<String, List<List<String>>> result = new HashMap<>();
+        HotkeyFinder f = new HotkeyFinder();
+        f.appendOperationLists(CmdField.getStrList());
+        result.put("cmd", f.getFrequentOperationList());
+        return result;
     }
 }

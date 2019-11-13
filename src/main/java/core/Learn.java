@@ -1,17 +1,19 @@
 package core;
 
 import core.learn.FieldHotkeyFindLoader;
-import org.apache.spark.api.java.JavaPairRDD;
-
 import dao.elsaticsearch.ElasticSearch;
-import util.Config;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.Config;
+import util.ResultBackup;
 import util.Spark.SparkDataProcess;
 import util.Time;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Learn implements Serializable {
     private Long count = 0L;
@@ -34,9 +36,16 @@ public class Learn implements Serializable {
     }
 
     public void autorun () {
-//        for (int i = 0; i < 100; i++) {
-////            execute();
-////        }
+//        Thread.sleep();
+        while(true) {
+            try{
+                Thread.sleep(50000);
+            } catch (InterruptedException e)
+            {
+                Logger logger = LoggerFactory.getLogger(core.Learn.class);
+                logger.info("Mode Swipe, timestamp: " + Time.now());
+            }
+        }
     }
 
     public void execute (){
@@ -74,6 +83,8 @@ public class Learn implements Serializable {
         FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
         Map<String, List<List<String>>> result = learn.execute(esRddMap);
         System.out.println(result.get("cmd"));
+        ResultBackup file = new ResultBackup();
+        file.save(result);
         jobFinishTime = Time.now();
         logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
         System.out.println("Execute Duration (overall) : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
