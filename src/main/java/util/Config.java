@@ -16,6 +16,7 @@ public class Config {
     private static List<String> elasticsearchIndices;
     private static List<String> elasticsearchFields;
     private static double frequentPercentage = 0;
+    private static String fileDirPath;
 
     static {
         defaultSetting();
@@ -40,6 +41,7 @@ public class Config {
         setDialogIndexMap();
         setElasticSearchIndices();
         setElasticsearchFields();
+//        setF
     }
 
     private static void setDialogIndexMap() {
@@ -105,8 +107,8 @@ public class Config {
     private static void setElasticSearchIndices() {
         elasticsearchIndices = new ArrayList<>();
         elasticsearchIndices.add("au_pkt_ams");
-        elasticsearchIndices.add("au_pkt_arp");
-        elasticsearchIndices.add("au_pkt_bacnet");
+//        elasticsearchIndices.add("au_pkt_arp");
+//        elasticsearchIndices.add("au_pkt_bacnet");
 //        elasticsearchIndices.add("au_pkt_cip");
 //        elasticsearchIndices.add("au_pkt_coap");
 //        elasticsearchIndices.add("au_pkt_dnp3");
@@ -251,6 +253,36 @@ public class Config {
         return elasticsearchFields;
     }
 
+    public static String getSparkNoticeLevel() {
+        String sparkNoticeLevel = retrieve("sparkNoticeLevel");
+        if (null != sparkNoticeLevel)
+            return sparkNoticeLevel;
+        return "OFF";
+    }
+
+    public static double getFrequentPercentage () {
+        String frequentPercentageFromFile = retrieve("fp");
+        if (null == frequentPercentageFromFile)
+            return 0;
+        try {
+            return Double.parseDouble(frequentPercentageFromFile);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public static String getFileDirPath () {
+        if (fileDirPath != null)
+            setFileDirPath();
+        return configFileAddress;
+    }
+
+    private static void setFileDirPath () {
+        fileDirPath = retrieve("fileDirPath");
+        if (fileDirPath == null)
+            fileDirPath = "D:\\Project\\2020\\dig-lib";
+    }
+
     private static String retrieve(String key) {
         if (configFileAddress == null) {
             return null;
@@ -282,23 +314,5 @@ public class Config {
             return null;
         }
         return null;
-    }
-
-    public static String getSparkNoticeLevel() {
-        String sparkNoticeLevel = retrieve("sparkNoticeLevel");
-        if (null != sparkNoticeLevel)
-            return sparkNoticeLevel;
-        return "OFF";
-    }
-
-    public static double getFrequentPercentage () {
-        String frequentPercentageFromFile = retrieve("fp");
-        if (null == frequentPercentageFromFile)
-            return 0;
-        try {
-            return Double.parseDouble(frequentPercentageFromFile);
-        } catch (Exception e) {
-            return 0;
-        }
     }
 }
