@@ -41,7 +41,7 @@ public class Config {
         setDialogIndexMap();
         setElasticSearchIndices();
         setElasticsearchFields();
-//        setF
+        setFileDirPath();
     }
 
     private static void setDialogIndexMap() {
@@ -274,7 +274,7 @@ public class Config {
     public static String getFileDirPath () {
         if (fileDirPath != null)
             setFileDirPath();
-        return configFileAddress;
+        return fileDirPath;
     }
 
     private static void setFileDirPath () {

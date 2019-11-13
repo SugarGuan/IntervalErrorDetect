@@ -3,8 +3,6 @@ package core;
 import core.learn.FieldHotkeyFindLoader;
 import dao.elsaticsearch.ElasticSearch;
 import org.apache.spark.api.java.JavaPairRDD;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import util.Config;
 import util.ResultBackup;
 import util.Spark.SparkDataProcess;
@@ -21,7 +19,7 @@ public class Learn implements Serializable {
     private Long queryFinishTime = 0L;
     private Long jobStartTime = 0L;
     private Long jobFinishTime = 0L;
-
+    private Long round = 0L;
 
     private Long getQueryStartTime () {
         return queryStartTime;
@@ -35,28 +33,29 @@ public class Learn implements Serializable {
         this.queryStartTime = queryStartTime;
     }
 
-    public void autorun () {
+    public void autorun () throws InterruptedException{
 //        Thread.sleep();
-        while(true) {
-            try{
-                Thread.sleep(50000);
-            } catch (InterruptedException e)
-            {
-                Logger logger = LoggerFactory.getLogger(core.Learn.class);
-                logger.info("Mode Swipe, timestamp: " + Time.now());
-            }
+        while (!Thread.currentThread().isInterrupted()) {
+            jobStartTime = Time.now();
+            count = 0L;
+            execute();
+            jobFinishTime = Time.now();
+            System.out.println("Execute Duration Round " + round++ + ": Runtime " +Time.timeFormatEnglish(jobFinishTime - jobStartTime));
+            System.out.println("-----------------------------------------------------");
+            Thread.sleep(1000);
         }
     }
 
     public void execute (){
-        jobStartTime = Time.now();
-        Logger logger = LoggerFactory.getLogger(core.Learn.class);
         ElasticSearch elasticSearch = new ElasticSearch();
         SparkDataProcess dataProcess = new SparkDataProcess();
         List<String> indices = Config.getElasticsearchIndices();
-
         queryStartTime = getQueryStartTime();
         queryFinishTime = getQueryFinishTime();
+
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Learning mode");
+        System.out.println("Data Retrieve since " + queryStartTime + " to " + queryFinishTime);
 
         JavaPairRDD<String, Map<String, Object>> esRdd;
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap = new HashMap<>();
@@ -70,24 +69,20 @@ public class Learn implements Serializable {
         }
 
         if (count <= 500){
-            logger.info("Retrieve records less than 500. Too less records makes system analysis unreliable.");
             return ;
         }
 
         setQueryStartTime(queryFinishTime);
         System.out.println("Retrieve " + count + " records.");
 
-        jobFinishTime = Time.now();
-        System.out.println("Data Retrieve Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
+
+        System.out.println("Data Retrieve Duration : " + Time.timeFormatEnglish(Time.now() - jobStartTime));
 
         FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
         Map<String, List<List<String>>> result = learn.execute(esRddMap);
         System.out.println(result.get("cmd"));
         ResultBackup file = new ResultBackup();
         file.save(result);
-        jobFinishTime = Time.now();
-        logger.warn("Execute Duration : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
-        System.out.println("Execute Duration (overall) : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
     }
 
 }

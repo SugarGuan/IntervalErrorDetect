@@ -8,11 +8,9 @@ public class LocalCleaner {
     public boolean clean() {
         String filePath = Config.getFileDirPath();
         if (filePath == null){
-            System.out.println("File Path Null");
             return true;
         }
         if (filePath.equals("")) {
-            System.out.println("Filepath empty");
             return true;
         }
 
@@ -20,7 +18,6 @@ public class LocalCleaner {
 
         if (!file.exists())
         {
-            System.out.println("File does not exist.");
             return true;
         }
         if (file.isDirectory()) {

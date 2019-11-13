@@ -11,8 +11,10 @@ import java.util.*;
 
 public class ResultBackup {
     Logger logger = LoggerFactory.getLogger(util.ResultBackup.class);
-    private final String dirPath = "D:\\Project\\2020\\dig-lib\\";
+    private final String dirPath = Config.getFileDirPath() + "\\";
+
     synchronized public void save(Map<String, List<List<String>>> hotKeyMap) {
+        System.out.println(dirPath);
         if (hotKeyMap == null)
             return;
         List<String> elasticsearchField = Config.getElasticsearchFields();
@@ -57,9 +59,6 @@ public class ResultBackup {
         } catch (IOException e) {
             logger.error(Long.toString(Time.now()));
             logger.error(e.toString());
-        } finally {
-
         }
-
     }
 }

@@ -9,9 +9,6 @@ public class Clean {
 
     public void execute() {
         LocalCleaner localCleaner = new LocalCleaner();
-        if (localCleaner.clean())
-            System.out.println("Deleted");
-        else
-            System.out.println("Not deleted.");
+        localCleaner.clean();
     }
 }
