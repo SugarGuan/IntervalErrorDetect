@@ -41,6 +41,7 @@ public class Main {
             learner.execute();
         };
 
+
         try{
             Thread t = new Thread(detect2);
             t.start();
@@ -50,6 +51,5 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }

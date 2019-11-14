@@ -17,6 +17,7 @@ public class Config {
     private static List<String> elasticsearchFields;
     private static double frequentPercentage = 0;
     private static String fileDirPath;
+    private static Map<String, List<String>> elasticSearchIndexFieldDict;
 
     static {
         defaultSetting();
@@ -41,6 +42,7 @@ public class Config {
         setDialogIndexMap();
         setElasticSearchIndices();
         setElasticsearchFields();
+        setElasticSearchIndexFieldDict();
         setFileDirPath();
     }
 
@@ -155,7 +157,7 @@ public class Config {
         return elasticsearchIndices;
     }
 
-    private static void setElasticsearchFields() {
+    private static void setElasticsearchFields () {
         elasticsearchFields = new ArrayList<>();
         elasticsearchFields.add("addr");
         elasticsearchFields.add("appid");
@@ -249,11 +251,276 @@ public class Config {
         elasticsearchFields.add("ver");
     }
 
-    public static List<String> getElasticsearchFields() {
+    public static List<String> getElasticsearchFields () {
         return elasticsearchFields;
     }
 
-    public static String getSparkNoticeLevel() {
+    private static void setElasticSearchIndexFieldDict () {
+        elasticSearchIndexFieldDict = new HashMap<>();
+        List<String> field = new ArrayList<>();
+
+        field.add("i_cmd");
+        elasticSearchIndexFieldDict.put("au_pkt_ams", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        elasticSearchIndexFieldDict.put("au_pkt_arp", field);
+        field = new ArrayList<>();
+
+        field.add("i_data_type");
+        field.add("i_func");
+        elasticSearchIndexFieldDict.put("au_pkt_bacnet", field);
+        field = new ArrayList<>();
+
+        field.add("pkt_type");
+        field.add("i_service");
+        elasticSearchIndexFieldDict.put("au_pkt_cip", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_code");
+        field.add("i_msgid");
+        field.add("i_token");
+        elasticSearchIndexFieldDict.put("au_pkt_coap", field);
+        field = new ArrayList<>();
+
+        field.add("i_saddr");
+        field.add("i_daddr");
+        field.add("i_func");
+        field.add("i_groupnum");
+        field.add("i_varnum");
+        elasticSearchIndexFieldDict.put("au_pkt_dnp3", field);
+        field = new ArrayList<>();
+
+        field.add("i_domain");
+        elasticSearchIndexFieldDict.put("au_pkt_dns", field);
+        field = new ArrayList<>();
+
+        field.add("i_flag");
+        field.add("i_cmd");
+        field.add("i_reqid");
+        field.add("i_offset_errcode");
+        field.add("i_datalen");
+        elasticSearchIndexFieldDict.put("au_pkt_dsi", field);
+        field = new ArrayList<>();
+
+        field.add("i_req_id");
+        field.add("i_producer_id");
+        field.add("i_exchange_id");
+        field.add("i_status");
+        field.add("i_datalen");
+        elasticSearchIndexFieldDict.put("au_pkt_egd", field);
+        field = new ArrayList<>();
+
+        field.add("i_service");
+        field.add("i_dest");
+        field.add("i_source");
+        field.add("i_cmd");
+        elasticSearchIndexFieldDict.put("au_pkt_eplv1", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_json");
+        elasticSearchIndexFieldDict.put("au_pkt_es", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_ver");
+        field.add("i_trans_id");
+        field.add("i_tel_id");
+        field.add("i_src_statid");
+        field.add("i_n_data");
+        field.add("i_hdr_flag");
+        elasticSearchIndexFieldDict.put("au_pkt_esio", field);
+        field = new ArrayList<>();
+
+        field.add("i_data_hdr");
+        field.add("i_cmd");
+        field.add("i_cmd_str");
+        field.add("i_slave_addr");
+        elasticSearchIndexFieldDict.put("au_pkt_ethercat", field);
+        field = new ArrayList<>();
+
+        field.add("i_offset_addr");
+        field.add("pkt_type");
+        elasticSearchIndexFieldDict.put("au_pkt_ethernetip", field);
+        field = new ArrayList<>();
+
+        field.add("i_proto");
+        field.add("i_msgtype");
+        field.add("i_confirm");
+        field.add("i_service");
+        field.add("i_fda_addr");
+        elasticSearchIndexFieldDict.put("au_pkt_ffhse", field);
+        field = new ArrayList<>();
+
+        field.add("i_data");
+        elasticSearchIndexFieldDict.put("au_pkt_fox", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        elasticSearchIndexFieldDict.put("au_pkt_ftp", field);
+        field = new ArrayList<>();
+
+        field.add("i_appid");
+        field.add("i_gocbref");
+        field.add("i_datset");
+        field.add("i_goid");
+        field.add("i_stnum");
+        field.add("i_sqnum");
+        field.add("i_test");
+        field.add("i_conf_rev");
+        field.add("i_ndscom");
+        field.add("i_ndscom");
+        field.add("i_datalen");
+        elasticSearchIndexFieldDict.put("au_pkt_goose", field);
+        field = new ArrayList<>();
+
+        field.add("i_frame_type");
+        field.add("i_src");
+        field.add("i_src_cid");
+        field.add("i_dst");
+        field.add("i_dst_ch");
+        field.add("i_cmd");
+        field.add("i_context");
+        field.add("i_datalen");
+        elasticSearchIndexFieldDict.put("au_pkt_gryphon", field);
+        field = new ArrayList<>();
+
+        field.add("i_frame_type");
+        field.add("i_addr");
+        field.add("i_cmd");
+        field.add("i_proto");
+        elasticSearchIndexFieldDict.put("au_pkt_hartip", field);
+        field = new ArrayList<>();
+
+        field.add("i_rdn");
+        elasticSearchIndexFieldDict.put("au_pkt_https", field);
+        field = new ArrayList<>();
+
+        field.add("i_commaddr");
+        field.add("i_infoaddr");
+        elasticSearchIndexFieldDict.put("au_pkt_iec104", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_content");
+        elasticSearchIndexFieldDict.put("au_pkt_imap", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_url");
+        elasticSearchIndexFieldDict.put("au_pkt_influx", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_content");
+        elasticSearchIndexFieldDict.put("au_pkt_irc", field);
+        field = new ArrayList<>();
+
+        field.add("i_data");
+        elasticSearchIndexFieldDict.put("au_pkt_lldp", field);
+        field = new ArrayList<>();
+
+        field.add("i_ip");
+        field.add("i_hostname");
+        elasticSearchIndexFieldDict.put("au_pkt_llmnr", field);
+        field = new ArrayList<>();
+
+        field.add("i_vendor_code");
+        field.add("i_sid");
+        field.add("i_subnet_s");
+        field.add("i_subnet_d");
+        field.add("i_node_s");
+        field.add("i_node_d");
+        field.add("i_domain");
+        elasticSearchIndexFieldDict.put("au_pkt_lontalk", field);
+        field = new ArrayList<>();
+
+        field.add("i_ip");
+        field.add("i_hostname");
+        elasticSearchIndexFieldDict.put("au_pkt_mdns", field);
+        field = new ArrayList<>();
+
+        field.add("i_type");
+        elasticSearchIndexFieldDict.put("au_pkt_mms", field);
+        field = new ArrayList<>();
+
+        field.add("i_func");
+        field.add("i_addr");
+        elasticSearchIndexFieldDict.put("au_pkt_modbus", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        elasticSearchIndexFieldDict.put("au_pkt_mysql", field);
+        field = new ArrayList<>();
+
+        field.add("i_cmd");
+        field.add("i_qqid");
+        elasticSearchIndexFieldDict.put("au_pkt_oicq", field);
+        field = new ArrayList<>();
+//        elasticSearchIndexFieldDict.put("au_pkt_omronfins", field);
+//        field = new ArrayList<>();
+
+        field.add("i_interface");
+        field.add("i_method");
+        elasticSearchIndexFieldDict.put("au_pkt_opc", field);
+        field = new ArrayList<>();
+
+        field.add("i_reqtype");
+        elasticSearchIndexFieldDict.put("au_pkt_opcua", field);
+        field = new ArrayList<>();
+
+        field.add("i_data_type");
+        field.add("i_sender_id");
+        field.add("i_data_pt_id");
+        field.add("i_msgtype");
+        field.add("i_sn_to");
+        field.add("i_sn_from");
+        field.add("i_safezone");
+        field.add("i_dir");
+        field.add("i_master");
+        field.add("i_slave");
+        field.add("i_ext_ser_id");
+        elasticSearchIndexFieldDict.put("au_pkt_opensafety", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        elasticSearchIndexFieldDict.put("au_pkt_pgsql", field);
+        field = new ArrayList<>();
+
+        field.add("i_layer");
+        field.add("i_msgtype");
+        field.add("i_msgtype_str");
+        field.add("i_dest");
+        field.add("i_dest_str");
+        field.add("i_source");
+        field.add("i_source_str");
+        elasticSearchIndexFieldDict.put("au_pkt_powerlink", field);
+        field = new ArrayList<>();
+
+        field.add("i_function");
+        elasticSearchIndexFieldDict.put("au_pkt_s7plus", field);
+        field = new ArrayList<>();
+//        elasticSearchIndexFieldDict.put("au_pkt_sercosiii", field);
+//        field = new ArrayList<>();
+
+        field.add("i_proto");
+        elasticSearchIndexFieldDict.put("au_pkt_sf_hasp", field);
+        field = new ArrayList<>();
+
+        field.add("i_pkt_type");
+        field.add("i_ip");
+        field.add("i_loc");
+        field.add("i_server");
+        elasticSearchIndexFieldDict.put("au_pkt_ssdp", field);
+    }
+
+    public static Map<String, List<String>> getElasticSearchIndexFieldDict () {
+        return elasticSearchIndexFieldDict;
+    }
+
+    public static String getSparkNoticeLevel () {
         String sparkNoticeLevel = retrieve("sparkNoticeLevel");
         if (null != sparkNoticeLevel)
             return sparkNoticeLevel;

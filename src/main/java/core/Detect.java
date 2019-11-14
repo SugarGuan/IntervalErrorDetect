@@ -1,9 +1,9 @@
 package core;
 
-import dao.elsaticsearch.ElasticSearch;
+import core.detect.Alerter;
+import core.detect.FieldHotKeyDetector;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
-import scala.Tuple2;
 import util.Config;
 import util.Spark.ElasticDataRetrieve;
 import util.Spark.SparkDataProcess;
@@ -20,9 +20,6 @@ public class Detect implements Serializable {
     private Long detectFinishTime = 0L;
     private Long jobStartTime = 0L;
     private Long jobFinishTime = 0L;
-    List<String> lib = new ArrayList<>();
-    List<String> commandLists;
-    int cmd = 0;
 
 
     public void autorun () throws InterruptedException {
@@ -40,47 +37,16 @@ public class Detect implements Serializable {
         detectStartTime = getDetectStartTime();
         detectFinishTime = Time.now();
 
-        File f = new File("D:\\Project\\2020\\dig-lib\\cmd.iedb");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            String strTemp;
-            while(null != (strTemp = br.readLine())) {
-                lib.add(strTemp);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+        FieldHotKeyDetector f = new FieldHotKeyDetector();
 
         ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
-
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
-                 dataRetrieve.retrieve(detectStartTime, detectFinishTime);
-        JavaPairRDD<String, Map<String, Object>> rdd = esRddMap.get("au_pkt_ams");
-        if (rdd == null)
-            return ;
-        if (rdd.count() == 0)
-            return ;
+                dataRetrieve.retrieve(detectStartTime,detectFinishTime,500L);
 
-        System.out.println(rdd.count());
+        if (null == esRddMap)
+            return;
 
-        rdd.groupByKey().values().map(new Function<Iterable<Map<String, Object>>, Object>() {
-
-            @Override
-            public Object call(Iterable<Map<String, Object>> maps) throws Exception {
-                commandLists = new ArrayList<>();
-                for (Map<String, Object> map : maps) {
-                    if (commandLists.size() >=20)
-                        commandLists.remove(0);
-                    commandLists.add((String) map.get("i_cmd"));
-                    if (checkInfile(commandLists) == true) {
-                        alert();
-                    } else
-                        System.out.println("None error");
-                }
-                return null;
-            }
-        }).collect();
+        f.detect(esRddMap);
 
         detectFinishTime = Time.now();
         System.out.println("Execute");
@@ -95,31 +61,4 @@ public class Detect implements Serializable {
         this.detectStartTime = detectFinishTime;
     }
 
-    private boolean checkInfile(List<String> list) {
-        int listLength = list.size();
-        int i = 0;
-        if (listLength == 0)
-            return false;
-        StringBuffer sb = new StringBuffer();
-        List<String> subList;
-        while (i < listLength) {
-            subList = list.subList(i, listLength);
-            for (String str : subList) {
-                sb.append(str);
-                sb.append(",");
-            }
-
-            String s = sb.toString();
-            sb.setLength(0);
-            System.out.println(s);
-            if (lib.contains(s))
-                return true;
-            i++;
-        }
-        return false;
-    }
-
-    private void alert() {
-        System.out.println("Founded." + cmd++);
-    }
 }
