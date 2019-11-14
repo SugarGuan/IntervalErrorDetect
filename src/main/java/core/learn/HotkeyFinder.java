@@ -84,6 +84,8 @@ public class HotkeyFinder {
         // Re-generate the frequent operation list.
         double frequentPercentage = 0.001; //Config.getHotkeyAppearancePercentage();
         int frequentTimes = (int) (frequentPercentage * operationCount);
+//        int frequentTimes = 10;
+
         operationLists = new ArrayList<>();
         for (List<String> key : operationDictionary.keySet()) {
             if (operationDictionary.get(key) >= frequentTimes)
