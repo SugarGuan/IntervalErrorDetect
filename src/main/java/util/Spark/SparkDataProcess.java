@@ -1,5 +1,6 @@
 package util.Spark;
 
+import org.codehaus.janino.Java;
 import util.Config;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -9,6 +10,7 @@ import scala.Tuple2;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SparkDataProcess implements Serializable {
@@ -59,32 +61,6 @@ public class SparkDataProcess implements Serializable {
         return(setRDDtoPairRDD(index, setPairRDDToRDD(rdd)));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public JavaRDD<Map<String, Object>> resetDialogIndexRDD(String index, JavaRDD<Map<String, Object>> RDD) {
         int resetDialogIndexRDDmode = Config.getDialogIndexMapValue(index);
         if (resetDialogIndexRDDmode == 1)
@@ -94,7 +70,7 @@ public class SparkDataProcess implements Serializable {
         return null;
     }
 
-    public JavaRDD<Map<String, Object>> resetDialogIndexRDDasAppIPaddr(JavaRDD<Map<String, Object>> RDD) {
+    private JavaRDD<Map<String, Object>> resetDialogIndexRDDasAppIPaddr(JavaRDD<Map<String, Object>> RDD) {
 
         try {
             JavaRDD<Map<String, Object>> resetRDD = RDD.map(
@@ -119,7 +95,7 @@ public class SparkDataProcess implements Serializable {
         }
     }
 
-    public JavaRDD<Map<String, Object>> resetDialogIndexRDDasAppMACaddr(JavaRDD<Map<String, Object>> RDD) {
+    private JavaRDD<Map<String, Object>> resetDialogIndexRDDasAppMACaddr(JavaRDD<Map<String, Object>> RDD) {
 
         try {
             JavaRDD<Map<String, Object>> resetRDD = RDD.map(

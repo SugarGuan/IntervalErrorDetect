@@ -9,7 +9,7 @@ public class Main {
         Long start = Time.now();
         Learn learner = new Learn();
         Clean cleaner = new Clean();
-        Detect detecter = new Detect();
+        Detect detector = new Detect();
         Runnable learn = () -> {
           try {
               learner.autorun();
@@ -23,14 +23,27 @@ public class Main {
             cleaner.autorun();
         };
         Runnable detect = () -> {
-            detecter.autorun();
+            try{
+                detector.autorun();
+            } catch (InterruptedException e) {
+                System.out.println("Thread running error: Excepted interrupt.");
+                System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
+            }
+        };
+// Temporal codes:
+        Runnable detect2 = () -> {
+            try {
+                detector.execute();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         };
 
         try{
-            Thread t = new Thread(clean);
+            Thread t = new Thread(learn);
             t.start();
             Thread.sleep(50 * 1000);
-            System.out.println("Mode Interrupted : \"Cleaning Mode.\"");
+            System.out.println("Mode Interrupted : \"detecting Mode.\"");
             t.interrupt();
         } catch (InterruptedException e) {
             e.printStackTrace();

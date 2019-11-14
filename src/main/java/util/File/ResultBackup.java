@@ -1,7 +1,9 @@
-package util;
+package util.File;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.Config;
+import util.Time;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,11 +12,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class ResultBackup {
-    Logger logger = LoggerFactory.getLogger(util.ResultBackup.class);
+    Logger logger = LoggerFactory.getLogger(ResultBackup.class);
     private final String dirPath = Config.getFileDirPath() + "\\";
 
     synchronized public void save(Map<String, List<List<String>>> hotKeyMap) {
-        System.out.println(dirPath);
         if (hotKeyMap == null)
             return;
         List<String> elasticsearchField = Config.getElasticsearchFields();
