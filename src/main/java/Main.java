@@ -17,7 +17,6 @@ public class Main {
               System.out.println("Thread running error: Excepted interrupt.");
               System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
           }
-
         };
         Runnable clean = () -> {
             cleaner.autorun();
@@ -38,9 +37,12 @@ public class Main {
                 e.printStackTrace();
             }
         };
+        Runnable learn2 = () -> {
+            learner.execute();
+        };
 
         try{
-            Thread t = new Thread(learn);
+            Thread t = new Thread(detect2);
             t.start();
             Thread.sleep(50 * 1000);
             System.out.println("Mode Interrupted : \"detecting Mode.\"");

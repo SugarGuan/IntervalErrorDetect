@@ -9,9 +9,7 @@ import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SparkDataProcess implements Serializable {
 
@@ -61,63 +59,8 @@ public class SparkDataProcess implements Serializable {
         return(setRDDtoPairRDD(index, setPairRDDToRDD(rdd)));
     }
 
-    public JavaRDD<Map<String, Object>> resetDialogIndexRDD(String index, JavaRDD<Map<String, Object>> RDD) {
-        int resetDialogIndexRDDmode = Config.getDialogIndexMapValue(index);
-        if (resetDialogIndexRDDmode == 1)
-            return resetDialogIndexRDDasAppIPaddr(RDD);
-        if (resetDialogIndexRDDmode == 2)
-            return resetDialogIndexRDDasAppMACaddr(RDD);
-        return null;
-    }
-
-    private JavaRDD<Map<String, Object>> resetDialogIndexRDDasAppIPaddr(JavaRDD<Map<String, Object>> RDD) {
-
-        try {
-            JavaRDD<Map<String, Object>> resetRDD = RDD.map(
-                    new Function<Map<String, Object>, Map<String, Object>>() {
-                        Map<String, Object> hashMap;
-                        @Override
-                        public Map<String, Object> call(Map<String, Object> stringObjectMap) throws Exception {
-                            hashMap = new HashMap<>();
-                            hashMap.put(
-                                    (String)stringObjectMap.get("i_dname") +
-                                            (String)stringObjectMap.get("i_ipsrc") +
-                                            (String)stringObjectMap.get("i_ipdst"),
-                                    stringObjectMap
-                            );
-                            return hashMap;
-                        }
-                    }
-            );
-            return resetRDD;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private JavaRDD<Map<String, Object>> resetDialogIndexRDDasAppMACaddr(JavaRDD<Map<String, Object>> RDD) {
-
-        try {
-            JavaRDD<Map<String, Object>> resetRDD = RDD.map(
-                    new Function<Map<String, Object>, Map<String, Object>>() {
-                        Map<String, Object> hashMap;
-                        @Override
-                        public Map<String, Object> call(Map<String, Object> stringObjectMap) throws Exception {
-                            hashMap = new HashMap<>();
-                            hashMap.put(
-                                    (String)stringObjectMap.get("i_dname") +
-                                            (String)stringObjectMap.get("i_macsrc") +
-                                            (String)stringObjectMap.get("i_macdst") ,
-                                    stringObjectMap
-                            );
-                            return hashMap;
-                        }
-                    }
-            );
-            return resetRDD;
-        } catch (Exception e) {
-            return null;
-        }
+    public JavaPairRDD<String, Iterable<Map<String, Object>>> combineDialogJavaPairRDD (JavaPairRDD<String, Map<String, Object>> rdd) {
+        return rdd.groupByKey();
     }
 
     public Long getCountOfRDD(JavaRDD<Map<String, Object>> RDD) {

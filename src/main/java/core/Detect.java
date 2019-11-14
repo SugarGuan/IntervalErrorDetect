@@ -64,25 +64,26 @@ public class Detect implements Serializable {
 
         System.out.println(rdd.count());
 
-        rdd.map(new Function<Tuple2<String, Map<String, Object>>, Object>() {
+        rdd.groupByKey().values().map(new Function<Iterable<Map<String, Object>>, Object>() {
+
             @Override
-            public Object call(Tuple2<String, Map<String, Object>> stringMapTuple2) throws Exception {
-                Map<String, Object> map = stringMapTuple2._2;
+            public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                 commandLists = new ArrayList<>();
-//                String startTime = (String) map.get("@timestamp");
-//                if(commandLists.size()==20)
-//                    commandLists.remove(0);
-//                commandLists.add( map.get("i_cmd"));
-//                if (checkInfile(commandLists)==true){
-//                    alert();
-//                } else {
-//                    System.out.println("None");
-//                }
-                System.out.println(map.get("i_cmd"));
+                for (Map<String, Object> map : maps) {
+                    if (commandLists.size() >=20)
+                        commandLists.remove(0);
+                    commandLists.add((String) map.get("i_cmd"));
+                    if (checkInfile(commandLists) == true) {
+                        alert();
+                    } else
+                        System.out.println("None error");
+                }
                 return null;
             }
         }).collect();
+
         detectFinishTime = Time.now();
+        System.out.println("Execute");
         setDetectStartTime(detectFinishTime);
     }
 
@@ -109,6 +110,7 @@ public class Detect implements Serializable {
             }
 
             String s = sb.toString();
+            sb.setLength(0);
             System.out.println(s);
             if (lib.contains(s))
                 return true;
@@ -118,6 +120,6 @@ public class Detect implements Serializable {
     }
 
     private void alert() {
-        System.out.println("Founded.");
+        System.out.println("Founded." + cmd++);
     }
 }
