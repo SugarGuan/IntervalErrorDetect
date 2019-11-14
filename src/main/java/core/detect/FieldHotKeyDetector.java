@@ -4,15 +4,12 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 import util.Config;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-public class FieldHotKeyDetector {
+public class FieldHotKeyDetector implements Serializable {
     Map<String, List<String>> indexField = Config.getElasticSearchIndexFieldDict();
     JavaPairRDD<String, Map<String, Object>> rdd;
     List<String> elasticIndices = Config.getElasticsearchIndices();
