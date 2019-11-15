@@ -39,6 +39,7 @@ public class CoapModule extends Module {
                             pkt_typeField.add((String) map.get("i_pkt_type"));
                             codeField.add((String) map.get("i_code"));
                             msgidField.add((String) map.get("i_msgid"));
+                            msgidField.add(Long.toString((Long) map.get("i_msgid")));
                             tokenField.add((String) map.get("i_token"));
                         }
                         Pkt_typeField.append(pkt_typeField);

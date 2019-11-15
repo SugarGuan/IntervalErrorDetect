@@ -1,6 +1,7 @@
 package core;
 
 import core.learn.FieldHotkeyFindLoader;
+import core.learn.FieldHotkeyFinder;
 import org.apache.spark.api.java.JavaPairRDD;
 import util.File.ResultBackup;
 import util.Spark.ElasticDataRetrieve;
@@ -34,7 +35,8 @@ public class Learn implements Serializable {
             jobStartTime = Time.now();
             execute();
             jobFinishTime = Time.now();
-            Thread.sleep(5 * 60 * 1000);
+            System.out.println("Finish : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
+            Thread.sleep(1 * 60 * 1000);
         }
     }
 
@@ -44,16 +46,18 @@ public class Learn implements Serializable {
 
         ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
-                dataRetrieve.retrieve(queryStartTime,queryFinishTime,500L);
-
+                dataRetrieve.retrieveAll(queryStartTime,queryFinishTime,500L);
         if (null == esRddMap)
             return;
 
-        setQueryStartTime(queryFinishTime);
         FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
         Map<String, List<List<String>>> result = learn.execute(esRddMap);
         ResultBackup file = new ResultBackup();
         file.save(result);
+
+//        FieldHotkeyFinder fieldHotkeyFinder = new FieldHotkeyFinder();
+//        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);
+//        setQueryStartTime(queryFinishTime);
     }
 
 }

@@ -2,12 +2,13 @@ package core.learn;
 
 import util.Config;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-public class HotkeyFinder {
+public class HotkeyFinder implements Serializable {
     private int maxHotkeyLength = 20;
     private int minHotkeyLength = 3;
     private Long operationCount = 0L;
@@ -29,7 +30,7 @@ public class HotkeyFinder {
 
     public void slideWindowSublist (List<String> operationList) {
         if (operationList.size() == 0)
-            System.out.println("Slide window sublist ERROR : operation list empty");
+            return;
         List<String> tempList;
         int start = 0;
         int end = 0;
