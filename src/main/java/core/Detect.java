@@ -41,15 +41,15 @@ public class Detect implements Serializable {
 
         ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
-                dataRetrieve.retrieve(detectStartTime,detectFinishTime,500L);
+                dataRetrieve.retrieveAll(detectStartTime,detectFinishTime,500L);
 
-        if (null == esRddMap)
+        if (null == esRddMap) {
+            System.out.println("ess null");
             return;
+        }
 
-        f.detect(esRddMap);
-
+        f.detect(esRddMap, detectStartTime);
         detectFinishTime = Time.now();
-        System.out.println("Execute");
         setDetectStartTime(detectFinishTime);
     }
 
