@@ -1,9 +1,14 @@
 package util;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.Date;
 
 public class Time {
+    public static final String STANDRD_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     public static Long getRealTime () {
         DateTime dateTime = new DateTime(new Date());
         return dateTime.getMillis();
@@ -31,6 +36,11 @@ public class Time {
         if(minute < 60)
             return minute + " minute " + (timestamp - 60 * minute * 1000) / 1000.0 + " second(s)";
         return timestamp / 1000.0 + " second(s)";
+    }
+
+    public static String dateTimeFormat (Long timestamp) {
+        DateTime dateTime = new DateTime(timestamp);
+        return dateTime.toString(STANDRD_FORMAT);
     }
 
 }

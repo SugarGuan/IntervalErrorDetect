@@ -14,8 +14,8 @@ public class Main {
           try {
               learner.autorun();
           }  catch (InterruptedException e) {
-              System.out.println("Thread running error: Excepted interrupt.");
-              System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
+//              System.out.println("Thread running error: Excepted interrupt.");
+//              System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
           }
         };
         Runnable clean = () -> {
@@ -25,8 +25,8 @@ public class Main {
             try{
                 detector.autorun();
             } catch (InterruptedException e) {
-                System.out.println("Thread running error: Excepted interrupt.");
-                System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
+//                System.out.println("Thread running error: Excepted interrupt.");
+//                System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
             }
         };
 // Temporal codes:
@@ -43,13 +43,13 @@ public class Main {
 
 
         try{
-            Thread t = new Thread(detect2);
+            Thread t = new Thread(learn2);
             t.start();
-            Thread.sleep(50 * 1000);
+            Thread.sleep(50* 60 * 1000);
             System.out.println("Mode Interrupted : \"detecting Mode.\"");
             t.interrupt();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
     }
 }

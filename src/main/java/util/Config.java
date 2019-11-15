@@ -15,9 +15,10 @@ public class Config {
     private static Map<String, Integer> dialogIndexMap;
     private static List<String> elasticsearchIndices;
     private static List<String> elasticsearchFields;
-    private static double frequentPercentage = 0;
     private static String fileDirPath;
     private static Map<String, List<String>> elasticSearchIndexFieldDict;
+    private static List<String> fields;
+    private static double frequentPercentage = 0;
 
     static {
         defaultSetting();
@@ -44,6 +45,7 @@ public class Config {
         setElasticsearchFields();
         setElasticSearchIndexFieldDict();
         setFileDirPath();
+        setFields();
     }
 
     private static void setDialogIndexMap() {
@@ -536,6 +538,122 @@ public class Config {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    private static void setFields() {
+        fields = new ArrayList<>();
+        fields.add("@timestamp");
+        fields.add("i_dname");
+        fields.add("i_ipsrc");
+        fields.add("i_ipdst");
+        fields.add("i_portsrc");
+        fields.add("i_portdst");
+        fields.add("i_dst_netid");
+        fields.add("i_dst_port");
+        fields.add("i_src_netid");
+        fields.add("i_src_port");
+        fields.add("i_cmd");
+        fields.add("i_macsrc");
+        fields.add("i_macdst");
+        fields.add("i_pkt_type");
+        fields.add("i_s_ip");
+        fields.add("i_s_mac");
+        fields.add("i_t_ip");
+        fields.add("i_t_mac");
+        fields.add("i_data_type");
+        fields.add("i_func");
+        fields.add("pkt_type");
+        fields.add("i_service");
+        fields.add("i_code");
+        fields.add("i_msgid");
+        fields.add("i_token");
+        fields.add("i_saddr");
+        fields.add("i_daddr");
+        fields.add("i_groupnum");
+        fields.add("i_varnum");
+        fields.add("i_sport");
+        fields.add("i_dport");
+        fields.add("i_domain");
+        fields.add("i_flag");
+        fields.add("i_reqid");
+        fields.add("i_offset_errcode");
+        fields.add("i_datalen");
+        fields.add("i_req_id");
+        fields.add("i_producer_id");
+        fields.add("i_exchange_id");
+        fields.add("i_status");
+        fields.add("i_dest");
+        fields.add("i_source");
+        fields.add("i_json");
+        fields.add("i_ver");
+        fields.add("i_trans_id");
+        fields.add("i_tel_id");
+        fields.add("i_src_statid");
+        fields.add("i_n_data");
+        fields.add("i_hdr_flag");
+        fields.add("i_data_hdr");
+        fields.add("i_cmd_str");
+        fields.add("i_slave_addr");
+        fields.add("i_offset_addr");
+        fields.add("i_proto");
+        fields.add("i_msgtype");
+        fields.add("i_confirm");
+        fields.add("i_fda_addr");
+        fields.add("i_data");
+        fields.add("i_appid");
+        fields.add("i_gocbref");
+        fields.add("i_datset");
+        fields.add("i_goid");
+        fields.add("i_stnum");
+        fields.add("i_sqnum");
+        fields.add("i_test");
+        fields.add("i_conf_rev");
+        fields.add("i_ndscom");
+        fields.add("i_frame_type");
+        fields.add("i_src");
+        fields.add("i_src_cid");
+        fields.add("i_dst");
+        fields.add("i_dst_ch");
+        fields.add("i_context");
+        fields.add("i_addr");
+        fields.add("i_rdn");
+        fields.add("i_commaddr");
+        fields.add("i_infoaddr");
+        fields.add("i_content");
+        fields.add("i_url");
+        fields.add("i_ip");
+        fields.add("i_hostname");
+        fields.add("i_vendor_code");
+        fields.add("i_sid");
+        fields.add("i_subnet_s");
+        fields.add("i_subnet_d");
+        fields.add("i_node_s");
+        fields.add("i_node_d");
+        fields.add("i_type");
+        fields.add("i_qqid");
+        fields.add("i_interface");
+        fields.add("i_method");
+        fields.add("i_reqtype");
+        fields.add("i_sender_id");
+        fields.add("i_data_pt_id");
+        fields.add("i_sn_to");
+        fields.add("i_sn_from");
+        fields.add("i_safezone");
+        fields.add("i_dir");
+        fields.add("i_master");
+        fields.add("i_slave");
+        fields.add("i_ext_ser_id");
+        fields.add("i_layer");
+        fields.add("i_msgtype_str");
+        fields.add("i_dest_str");
+        fields.add("i_source_str");
+        fields.add("i_function");
+        fields.add("i_loc");
+        fields.add("i_server");
+    }
+
+    public static List<String> getFields() {
+        return fields;
     }
 
     public static String getFileDirPath () {

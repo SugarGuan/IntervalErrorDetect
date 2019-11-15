@@ -8,10 +8,11 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.elasticsearch.spark.rdd.api.java.JavaEsSpark;
 import util.Time;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class ElasticSearch {
+public class ElasticSearch implements Serializable {
     private String elasticsearchAddr;
     private String elasticsearchPort;
     private String elasticsearchUsername;
