@@ -1,4 +1,4 @@
-package util.Spark;
+package util.spark;
 
 import util.Config;
 import org.apache.log4j.Level;

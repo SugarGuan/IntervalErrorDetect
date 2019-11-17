@@ -3,8 +3,8 @@ package core.learn;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 import util.Config;
-import util.File.ResultBackup;
-import util.Spark.ElasticDataRetrieve;
+import util.file.ResultBackup;
+import util.spark.ElasticDataRetrieve;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -668,6 +668,14 @@ public class Config {
             fileDirPath = "D:\\Project\\2020\\dig-lib";
     }
 
+    public static String getWebSocketIP() {
+        return "10.245.142.213";
+    }
+
+    public static int getWebSocketPort() {
+        return 20000;
+    }
+
     private static String retrieve(String key) {
         if (configFileAddress == null) {
             return null;

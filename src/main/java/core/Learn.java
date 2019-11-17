@@ -1,10 +1,9 @@
 package core;
 
 import core.learn.FieldHotkeyFindLoader;
-import core.learn.FieldHotkeyFinder;
 import org.apache.spark.api.java.JavaPairRDD;
-import util.File.ResultBackup;
-import util.Spark.ElasticDataRetrieve;
+import util.file.ResultBackup;
+import util.spark.ElasticDataRetrieve;
 import util.Time;
 
 import java.io.Serializable;
@@ -31,13 +30,9 @@ public class Learn implements Serializable {
 
     public void autorun () throws InterruptedException{
 //        Thread.sleep();
-        while (!Thread.currentThread().isInterrupted()) {
             jobStartTime = Time.now();
             execute();
             jobFinishTime = Time.now();
-            System.out.println("Finish : " + Time.timeFormatEnglish(jobFinishTime - jobStartTime));
-            Thread.sleep(1 * 60 * 1000);
-        }
     }
 
     public void execute (){

@@ -1,6 +1,6 @@
 package dao.elsaticsearch;
 
-import util.Spark.Spark;
+import util.spark.Spark;
 import util.Config;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;

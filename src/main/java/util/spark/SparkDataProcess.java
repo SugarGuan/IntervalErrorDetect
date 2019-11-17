@@ -1,10 +1,8 @@
-package util.Spark;
+package util.spark;
 
-import org.codehaus.janino.Java;
 import util.Config;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 

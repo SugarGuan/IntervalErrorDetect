@@ -1,8 +1,6 @@
 package core.learn.field;
 
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
-import util.Spark.Spark;
 
 import java.util.ArrayList;
 import java.util.List;

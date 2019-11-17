@@ -1,4 +1,4 @@
-package util.Spark;
+package util.spark;
 
 import dao.elsaticsearch.ElasticSearch;
 import org.apache.spark.api.java.JavaPairRDD;

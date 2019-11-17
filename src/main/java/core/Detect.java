@@ -1,18 +1,11 @@
 package core;
 
-import core.detect.Alerter;
 import core.detect.FieldHotKeyDetector;
 import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.function.Function;
-import util.Config;
-import util.Spark.ElasticDataRetrieve;
-import util.Spark.SparkDataProcess;
+import util.spark.ElasticDataRetrieve;
 import util.Time;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Detect implements Serializable {
@@ -23,17 +16,12 @@ public class Detect implements Serializable {
 
 
     public void autorun () throws InterruptedException {
-        while (!Thread.currentThread().isInterrupted()) {
             jobStartTime = Time.now();
             execute();
             jobFinishTime = Time.now();
-            System.out.println(Time.timeFormatEnglish(jobFinishTime - jobStartTime));
-            Thread.sleep(1000);
-        }
     }
 
     public void execute () throws InterruptedException {
-        System.out.println("Detected Mode");
         detectStartTime = getDetectStartTime();
         detectFinishTime = Time.now();
 
@@ -44,10 +32,9 @@ public class Detect implements Serializable {
                 dataRetrieve.retrieveAll(detectStartTime,detectFinishTime,500L);
 
         if (null == esRddMap) {
-            System.out.println("ess null");
+            System.out.println("esrdd null");
             return;
         }
-
         f.detect(esRddMap, detectStartTime);
         detectFinishTime = Time.now();
         setDetectStartTime(detectFinishTime);

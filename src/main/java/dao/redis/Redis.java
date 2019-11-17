@@ -11,6 +11,7 @@ public class Redis implements Serializable {
     private int redisPort;
     private int maxTotal, maxIdle;
     private static JedisPool jedisPool;
+    private static Jedis jedis;
 
     public Redis() {
         this.redisAddr = "10.245.142.213";
@@ -65,7 +66,15 @@ public class Redis implements Serializable {
     }
 
     public void insertRedisList(String list, String value) {
-        getRedisInstanceFromPool().lpush(list,value);
+        if (jedis==null)
+            jedis = getRedisInstanceFromPool();
+        System.out.println("-----------------------");
+        System.out.println("Insert into Redis");
+        System.out.println(list);
+        System.out.println(value);
+        jedis.lpush(list,value);
+        System.out.println("-----------------------");
+
     }
 
     public void insertRedisList(String list, Long value) {

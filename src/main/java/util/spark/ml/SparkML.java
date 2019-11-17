@@ -1,4 +1,4 @@
-package util.Spark.ml;
+package util.spark.ml;
 
 public abstract class SparkML {
 

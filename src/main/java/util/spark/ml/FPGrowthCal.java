@@ -1,4 +1,4 @@
-package util.Spark.ml;
+package util.spark.ml;
 
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.mllib.fpm.AssociationRules;
