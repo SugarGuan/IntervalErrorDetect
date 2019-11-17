@@ -18,6 +18,8 @@ public class ElasticDataRetrieve implements Serializable {
     private Long count = 0L;
 
     public JavaPairRDD<String, Map<String, Object>> retrieve (String index, Long start, Long end) {
+        if (Thread.currentThread().isInterrupted())
+            return null;
         if (end <= start)
             return null;
         if (index == null)
@@ -42,6 +44,8 @@ public class ElasticDataRetrieve implements Serializable {
     }
 
     public Map<String, JavaPairRDD<String, Map<String, Object>>> retrieveAll (Long start, Long end, Long recordMoreThan) {
+        if (Thread.currentThread().isInterrupted())
+            return null;
         retrieveAll(start, end);
         if (count <= recordMoreThan)
             return null;

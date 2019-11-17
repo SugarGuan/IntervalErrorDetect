@@ -23,6 +23,8 @@ public class FieldHotKeyDetector implements Serializable {
         alertSetter();
         for (String str : elasticIndices) {
             fields = indexField.get(str);
+            if (Thread.currentThread().isInterrupted())
+                return ;
             if (fields == null)
                 continue;
             rdd = rddMap.get(str);
@@ -31,6 +33,8 @@ public class FieldHotKeyDetector implements Serializable {
             if (rdd.count() == 0)
                 continue ;
             for (String field : fields) {
+                if (Thread.currentThread().isInterrupted())
+                    return ;
                 libSetter(field);
                 rdd.groupByKey().values().map(new Function<Iterable<Map<String, Object>>, Object>() {
                     @Override

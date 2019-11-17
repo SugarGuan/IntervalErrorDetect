@@ -75,6 +75,9 @@ public class HotkeyFinder implements Serializable {
     }
 
     public List<List<String>> getFrequentOperationList () {
+        // Logic for Thread interrupted or not.
+        if (Thread.currentThread().isInterrupted())
+            return null;
         // (Core)
         // Generate the operation dictionary
         for (List<String> operationList : operationLists) {

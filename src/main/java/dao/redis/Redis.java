@@ -68,12 +68,12 @@ public class Redis implements Serializable {
     public void insertRedisList(String list, String value) {
         if (jedis==null)
             jedis = getRedisInstanceFromPool();
-        System.out.println("-----------------------");
-        System.out.println("Insert into Redis");
-        System.out.println(list);
-        System.out.println(value);
+//        System.out.println("-----------------------");
+//        System.out.println("Insert into Redis");
+//        System.out.println(list);
+//        System.out.println(value);
         jedis.lpush(list,value);
-        System.out.println("-----------------------");
+//        System.out.println("-----------------------");
 
     }
 

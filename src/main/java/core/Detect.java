@@ -32,7 +32,7 @@ public class Detect implements Serializable {
                 dataRetrieve.retrieveAll(detectStartTime,detectFinishTime,500L);
 
         if (null == esRddMap) {
-            System.out.println("esrdd null");
+//            System.out.println("esrdd null");
             return;
         }
         f.detect(esRddMap, detectStartTime);

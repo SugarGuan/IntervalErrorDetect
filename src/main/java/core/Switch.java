@@ -9,14 +9,22 @@ public class Switch {
     private StringBuffer pastFlag = new StringBuffer();
     private Runnable runnable;
     private Thread thread;
+    private Redis redis = new Redis();
 
     public void autoSwitch (String mode) {
         // Initial Mode
+
         String modeCorrected = "D";
-        if (mode.equals("on"))
+        if (mode.equals("on")) {
             modeCorrected = "L";
-        else if (mode.equals("clean"))
+            redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"starting\"}");
+        }
+        else if (mode.equals("clean")) {
             modeCorrected = "C";
+        }
+        else {
+            redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"stopping\"}");
+        }
 
         if (modeCorrected.equals(nowFlag.toString()))
             return;
@@ -63,6 +71,7 @@ public class Switch {
         Detect detector = new Detect();
         Runnable learn = () -> {
             try {
+                redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"on\"}");
                 while (!Thread.currentThread().isInterrupted()) {
                     System.out.println("Learning mode");
                     learner.autorun();
@@ -78,6 +87,7 @@ public class Switch {
         };
         Runnable detect = () -> {
             try {
+                redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"off\"}");
                 while (!Thread.currentThread().isInterrupted()) {
                     System.out.println("Detecting mode");
                     detector.autorun();
