@@ -7,7 +7,8 @@ import java.io.File;
 public class LocalCleaner {
 
     /**
-     * LocalCleaner是Clean模式的核心类，用于清理本地学习到的规则文件。
+     * LocalCleaner 类
+     * Clean模式的核心类，用于清理本地学习到的规则文件。
      */
 
 

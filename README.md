@@ -6,14 +6,12 @@
 
 该插件提供3种模式：学习模式 / 检测模式 / 清理模式
 
-当前版本：0.3.5 (build 18)
+当前版本：0.3.1 (build 19)
 ~~~
 
 自动编译信息：
 
-Travis  CI [![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
-
-AppVeyor [![Build status](https://ci.appveyor.com/api/projects/status/fbavubt1cyl3rlmm?svg=true)](https://ci.appveyor.com/project/SugarGuan/ied)  
+[![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
 
 
 ## 学习模式
@@ -41,4 +39,5 @@ AppVeyor [![Build status](https://ci.appveyor.com/api/projects/status/fbavubt1cy
 `如：ABCDABC 和 ABCEABC 中 学得 ABC*ABC`
 
 
+---
 &copy;  2019 Harbin Institute and Technology.

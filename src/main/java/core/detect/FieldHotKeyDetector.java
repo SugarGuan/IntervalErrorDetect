@@ -12,7 +12,8 @@ import java.util.ArrayList;
 public class FieldHotKeyDetector implements Serializable {
 
     /**
-     * FieldHotKeyDetector类是检测模式的核心功能类，用于检测字段序列是否存在异常
+     * FieldHotKeyDetector类
+     * 检测模式的核心功能类，用于检测字段序列是否存在异常
      * 异常队列由学习模式得到的规则文件确定.
      */
 

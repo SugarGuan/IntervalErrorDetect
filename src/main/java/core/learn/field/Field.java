@@ -6,7 +6,8 @@ import java.util.List;
 public class Field {
 
     /**
-     * Field类是所有*Field类的dao模板类。该类保存对应field，
+     * Field类
+     * 所有 *Field 类的dao模板类。该类保存对应field，
      * 提供追加、获取和重置方法.
      */
 

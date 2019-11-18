@@ -12,7 +12,8 @@ import java.util.Map;
 public class Alerter implements Serializable {
 
     /**
-     *   Alerter 类是检测模式(Detect Mode)中用于发送报警信息的类。
+     *   Alerter 类
+     *   该类是检测模式(Detect Mode)中用于发送报警信息的类。
      *   report方法用于向指定的redis表插入一条报警记录
      *   convertJsonString方法用于将有用的报警信息(数据)转换成json语句
      *
