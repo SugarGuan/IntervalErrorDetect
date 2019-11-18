@@ -1,5 +1,6 @@
 package core.learn;
 
+import dao.elsaticsearch.ElasticSearch;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 import util.Config;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 public class FieldHotkeyFinder implements Serializable {
 
+    ElasticSearch es;
     ElasticDataRetrieve elasticDataRetrieve = new ElasticDataRetrieve();
     ResultBackup resultBackup = new ResultBackup();
     List<String> indices = Config.getElasticsearchIndices();
@@ -24,12 +26,16 @@ public class FieldHotkeyFinder implements Serializable {
     List<List<String>> fieldOpcodeLists;
     List<String> fieldOpcodeList;
 
+    public FieldHotkeyFinder(ElasticSearch es) {
+        this.es = es;
+    }
+
     public void learn(Long startTime, Long endTime) {
         for (String index : indices) {
             fields = indicesFieldDict.get(index);
             if (fields == null)
                 continue;
-            indexRDD = elasticDataRetrieve.retrieve(index, startTime, endTime);
+            indexRDD = elasticDataRetrieve.retrieve(es, index, startTime, endTime);
             if (indexRDD == null)
                 continue;
             if (indexRDD.count() == 0L)

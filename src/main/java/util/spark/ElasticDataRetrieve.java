@@ -10,31 +10,30 @@ import java.util.List;
 import java.util.Map;
 
 public class ElasticDataRetrieve implements Serializable {
-    private ElasticSearch elasticSearch = new ElasticSearch();
     private SparkDataProcess dataProcess = new SparkDataProcess();
     private JavaPairRDD<String, Map<String, Object>> esRdd;
     private Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap = new HashMap<>();
     private List<String> indices = Config.getElasticsearchIndices();
     private Long count = 0L;
 
-    public JavaPairRDD<String, Map<String, Object>> retrieve (String index, Long start, Long end) {
+    public JavaPairRDD<String, Map<String, Object>> retrieve (ElasticSearch es, String index, Long start, Long end) {
         if (Thread.currentThread().isInterrupted())
             return null;
         if (end <= start)
             return null;
         if (index == null)
             return null;
-        return dataProcess.resetJavaPairRDD(index, elasticSearch.getResult(index, start, end));
+        return dataProcess.resetJavaPairRDD(index, es.getResult(index, start, end));
     }
 
-    public Map<String, JavaPairRDD<String, Map<String, Object>>> retrieveAll (Long start, Long end) {
+    public Map<String, JavaPairRDD<String, Map<String, Object>>> retrieveAll (ElasticSearch es, Long start, Long end) {
         count = 0L;
         if (end <= start)
             return null;
         if (indices == null)
             return null;
         for (String index : indices) {
-            esRdd = dataProcess.resetJavaPairRDD(index, elasticSearch.getResult(index, start, end));
+            esRdd = dataProcess.resetJavaPairRDD(index, es.getResult(index, start, end));
             if (esRdd == null)
                 continue;
             esRddMap.put(index, esRdd);
@@ -43,10 +42,10 @@ public class ElasticDataRetrieve implements Serializable {
         return esRddMap;
     }
 
-    public Map<String, JavaPairRDD<String, Map<String, Object>>> retrieveAll (Long start, Long end, Long recordMoreThan) {
+    public Map<String, JavaPairRDD<String, Map<String, Object>>> retrieveAll (ElasticSearch es, Long start, Long end, Long recordMoreThan) {
         if (Thread.currentThread().isInterrupted())
             return null;
-        retrieveAll(start, end);
+        retrieveAll(es, start, end);
         if (count <= recordMoreThan)
             return null;
         return esRddMap;

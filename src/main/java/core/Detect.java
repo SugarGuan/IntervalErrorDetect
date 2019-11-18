@@ -1,6 +1,7 @@
 package core;
 
 import core.detect.FieldHotKeyDetector;
+import dao.elsaticsearch.ElasticSearch;
 import org.apache.spark.api.java.JavaPairRDD;
 import util.spark.ElasticDataRetrieve;
 import util.Time;
@@ -13,7 +14,11 @@ public class Detect implements Serializable {
     private Long detectFinishTime = 0L;
     private Long jobStartTime = 0L;
     private Long jobFinishTime = 0L;
+    private ElasticSearch es;
 
+    public Detect(ElasticSearch es) {
+        this.es = es;
+    }
 
     public void autorun () throws InterruptedException {
             jobStartTime = Time.now();
@@ -29,7 +34,7 @@ public class Detect implements Serializable {
 
         ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
-                dataRetrieve.retrieveAll(detectStartTime,detectFinishTime,500L);
+                dataRetrieve.retrieveAll(es, detectStartTime,detectFinishTime,500L);
 
         if (null == esRddMap) {
 //            System.out.println("esrdd null");

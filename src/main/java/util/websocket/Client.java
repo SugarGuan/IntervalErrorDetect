@@ -2,6 +2,7 @@ package util.websocket;
 
 import com.alibaba.fastjson.JSONException;
 import core.Switch;
+import dao.elsaticsearch.ElasticSearch;
 import dao.websocket.Model;
 import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
@@ -12,14 +13,21 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import com.alibaba.fastjson.JSON;
+import util.Config;
 
 public class Client {
     private boolean initialFlag = false;
-    private Switch switcher = new Switch();
+    private Switch switcher;
     private static WebSocketClient client;
     private static StringBuffer uri = new StringBuffer("ws://");
 
-    public void autoReceive(String ipAddr, int port) {
+    public Client (ElasticSearch elasticSearch) {
+        switcher = new Switch(elasticSearch);
+    }
+
+    public void autoReceive() {
+        String ipAddr = Config.getWebSocketIP();
+        int port = Config.getWebSocketPort();
         if (initialFlag == false) {
             // 默认模式下进入检测模式 (study: off)
             switcher.autoSwitch("off");

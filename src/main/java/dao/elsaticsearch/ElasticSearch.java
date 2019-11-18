@@ -38,7 +38,7 @@ public class ElasticSearch implements Serializable {
         this.elasticsearchPassword = elasticsearchPassword;
     }
 
-    public List<String> getElasticsearchIndices() {
+    private List<String> getElasticsearchIndices() {
         return Config.getElasticsearchIndices();
     }
 
@@ -62,7 +62,7 @@ public class ElasticSearch implements Serializable {
         esparkConfUpdated = true;
     }
 
-    private JavaSparkContext getESparkContext(){
+    public JavaSparkContext getESparkContext(){
         updateEsparkConf();
         JavaSparkContext sc = Spark.getSparkContext();
         return sc;

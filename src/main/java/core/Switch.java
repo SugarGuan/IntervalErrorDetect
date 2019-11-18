@@ -1,5 +1,6 @@
 package core;
 
+import dao.elsaticsearch.ElasticSearch;
 import dao.redis.Redis;
 import util.Config;
 import util.websocket.Client;
@@ -10,6 +11,12 @@ public class Switch {
     private Runnable runnable;
     private Thread thread;
     private Redis redis = new Redis();
+    private ElasticSearch es;
+
+    public Switch(ElasticSearch es){
+        this.es = es;
+    }
+
 
     public void autoSwitch (String mode) {
         // Initial Mode
@@ -17,13 +24,13 @@ public class Switch {
         String modeCorrected = "D";
         if (mode.equals("on")) {
             modeCorrected = "L";
-            redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"starting\"}");
+            redis.insertRedisList("cmd_dis_result", "{\"app\":\"ad_cycledetect\",\"op\":\"learn\",\"state\":\"starting\"}");
         }
-        else if (mode.equals("clean")) {
+        else if (mode.equals("clear")) {
             modeCorrected = "C";
         }
         else {
-            redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"stopping\"}");
+            redis.insertRedisList("cmd_dis_result", "{\"app\":\"ad_cycledetect\",\"op\":\"learn\",\"state\":\"stopping\"}");
         }
 
         if (modeCorrected.equals(nowFlag.toString()))
@@ -66,12 +73,12 @@ public class Switch {
     }
 
     private Runnable getModeRuuable (String mode) {
-        Learn learner = new Learn();
+        Learn learner = new Learn(es);
         Clean cleaner = new Clean();
-        Detect detector = new Detect();
+        Detect detector = new Detect(es);
         Runnable learn = () -> {
             try {
-                redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"on\"}");
+                redis.insertRedisList("cmd_dis_result", "{\"app\":\"ad_cycledetect\",\"op\":\"learn\",\"state\":\"on\"}");
                 while (!Thread.currentThread().isInterrupted()) {
                     System.out.println("Learning mode");
                     learner.autorun();
@@ -87,7 +94,7 @@ public class Switch {
         };
         Runnable detect = () -> {
             try {
-                redis.insertRedisList("cmd_dis_result", "{\"app\":\"IntervalErrorDetect\",\"op\":\"learn\",\"state\":\"off\"}");
+                redis.insertRedisList("cmd_dis_result", "{\"app\":\"ad_cycledetect\",\"op\":\"learn\",\"state\":\"off\"}");
                 while (!Thread.currentThread().isInterrupted()) {
                     System.out.println("Detecting mode");
                     detector.autorun();
