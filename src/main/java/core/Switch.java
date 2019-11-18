@@ -2,8 +2,6 @@ package core;
 
 import dao.elsaticsearch.ElasticSearch;
 import dao.redis.Redis;
-import util.Config;
-import util.websocket.Client;
 
 public class Switch {
     private StringBuffer nowFlag = new StringBuffer();

@@ -6,7 +6,7 @@ import org.apache.spark.api.java.JavaPairRDD;
 import util.spark.ElasticDataRetrieve;
 import util.Time;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.Map;
 
 public class Detect implements Serializable {

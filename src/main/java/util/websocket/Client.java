@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONException;
 import core.Switch;
 import dao.elsaticsearch.ElasticSearch;
 import dao.websocket.Model;
-import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
@@ -49,7 +48,7 @@ public class Client {
     public void autoReceive() {
         String ipAddr = Config.getWebSocketIP();
         int port = Config.getWebSocketPort();
-        if (initialFlag == false) {
+        if (!initialFlag) {
             // 默认模式下进入检测模式 (study: off)
             switcher.autoSwitch("off");
             initialFlag = true;

@@ -7,7 +7,7 @@ import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Map;
 
 public class SparkDataProcess implements Serializable {
 
