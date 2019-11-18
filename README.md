@@ -6,12 +6,10 @@
 
 该插件提供3种模式：学习模式 / 检测模式 / 清理模式
 
-当前版本：0.3.1 (build 19)
+当前版本：0.3.1 (build 21)
 ~~~
 
-自动编译信息：
-
-[![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
+自动编译信息：[![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
 
 
 ## 学习模式
@@ -39,5 +37,4 @@
 `如：ABCDABC 和 ABCEABC 中 学得 ABC*ABC`
 
 
----
 &copy;  2019 Harbin Institute and Technology.
