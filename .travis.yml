@@ -3,3 +3,4 @@ os:
   - linux
 jdk:
   - openjdk8
+script: mvn package

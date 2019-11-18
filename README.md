@@ -6,7 +6,7 @@
 
 该插件提供3种模式：学习模式 / 检测模式 / 清理模式
 
-当前版本：0.3.1 (build 21)
+当前版本：0.3.1 (build 22)
 ~~~
 
 自动编译信息：[![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
