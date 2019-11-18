@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class HotkeyFinder implements Serializable {
+    /**
+     *  FieldHotKeyFinder 类是新版学习模式的核心类 （暂未启用）
+     *  它从RDD中获取对应的队列，统计序列出现频次，存入规则文件（以对应field命名）
+     */
     private int maxHotkeyLength = 20;
     private int minHotkeyLength = 3;
     private Long operationCount = 0L;

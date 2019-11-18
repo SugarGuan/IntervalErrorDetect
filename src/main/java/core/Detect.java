@@ -10,6 +10,12 @@ import java.io.*;
 import java.util.Map;
 
 public class Detect implements Serializable {
+
+    /**
+     *  Detect 类是检测模式的控制器类
+     *  它调用相应的检测组件FieldHotKeyDetector类对象的检测方法。
+     */
+
     private Long detectStartTime = 0L;
     private Long detectFinishTime = 0L;
     private Long jobStartTime = 0L;

@@ -5,6 +5,11 @@ import java.util.List;
 
 public class Field {
 
+    /**
+     * Field类是所有*Field类的dao模板类。该类保存对应field，
+     * 提供追加、获取和重置方法.
+     */
+
     private static List<List<String>>  fieldList = new ArrayList<>();
 
     public static void append (List<String> strList) {fieldList.add(strList); };

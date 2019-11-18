@@ -7,6 +7,14 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 
 public class Spark {
+
+    /**
+     *  Spark 类
+     *  提供Spark操作的封装桥函数 方法类
+     *  配置Spark配置项 （SparkConf）
+     *  生成全局唯一的Spark Context
+     */
+
     private static String sparkRunMode = "local";                              // Default setting to local.
     private static String sparkAppname = "SparkES";                            // Default setting to SparkES.
     private static String sparkBrodacastCompress = "true";                     // Default OPEN to speed up the plugin.

@@ -11,6 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 public class FieldHotkeyFindLoader {
+
+    /**
+     * execute手动指定了field和index的关系。** 这里有待改进
+     * @param rddMap
+     * @return
+     */
+
+
     public Map<String, List<List<String>>> execute(Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap) {
         List<Module> indicesModule = new ArrayList<>();
         // Indices :

@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Config {
+
+    /**
+     * Config 类
+     * 全局配置信息表类，提供启动后默认配置信息的查询，配置信息的更新，配置文件读取方法等
+     */
+
     private static String configFileAddress = "D:\\Project\\2020\\conf.conf";
     private static String codingBy = "UTF-8";
     private static Map<String, Integer> dialogIndexMap;
@@ -20,25 +26,51 @@ public class Config {
     private static List<String> fields;
     private static double frequentPercentage = 0;
 
+    /**
+     * 类实体提供了默认配置方法，在程序启动时将加载默认配置
+     */
     static {
         defaultSetting();
     }
 
+    /**
+     * 一旦该类被实例化，依然加载默认配置
+     */
     public Config() {
         defaultSetting();
     }
 
+    /**
+     * Config()
+     * 实例化时，更新配置文件地址的前提下加载默认配置
+     * @param configFileAddr 配置文件地址
+     */
     public Config(String configFileAddr) {
         configFileAddress = configFileAddr;
         defaultSetting();
     }
 
+    /**
+     * Config()
+     * 实例化时，更新配置文件地址的前提下加载默认配置
+     * @param configFileAddr 配置文件地址
+     * @param coding 配置文件编码格式
+     */
     public Config(String configFileAddr, String coding) {
         configFileAddress = configFileAddr;
         codingBy = coding;
         defaultSetting();
     }
 
+    /**
+     * defaultSetting()
+     * 加载默认配置，包括：
+     * 加载默认配置的 elastic search索引中具体是IP确定单一会话还是MAC地址确定单一会话
+     * 加载默认配置的 elastic search 索引列表
+     * 加载默认配置的 elastic search 索引-可分析字段对应键值对词典
+     * 加载默认配置的 检测模式文件保存地址
+     * 加载默认配置的 全局字段列表
+     */
     private static void defaultSetting(){
         setDialogIndexMap();
         setElasticSearchIndices();
@@ -48,6 +80,10 @@ public class Config {
         setFields();
     }
 
+    /**
+     * setDialogIndexMap()
+     * 加载默认配置的 elastic search索引中具体是IP确定单一会话还是MAC地址确定单一会话
+     */
     private static void setDialogIndexMap() {
 
         dialogIndexMap = new HashMap<>();
@@ -100,6 +136,12 @@ public class Config {
 
     }
 
+    /**
+     * getDialogIndexMapValue()
+     * 根据提供的索引名返回RDD的key模式
+     * @param index 索引名
+     * @return 确定单一会话模式：1为ip地址 ，2为mac地址
+     */
     public static int getDialogIndexMapValue(String index) {
         if (dialogIndexMap == null)
             setDialogIndexMap();
@@ -108,6 +150,10 @@ public class Config {
         return dialogIndexMap.get(index);
     }
 
+    /**
+     * setElasticSearchIndices()
+     * 加载默认配置的 elastic search 索引列表
+     */
     private static void setElasticSearchIndices() {
         elasticsearchIndices = new ArrayList<>();
         elasticsearchIndices.add("au_pkt_ams");
@@ -155,10 +201,18 @@ public class Config {
         elasticsearchIndices.add("au_pkt_ssdp");
     }
 
+    /**
+     * getElasticSearchIndices()
+     * @return 获取配置的 elastic search 索引信息
+     */
     public static List<String> getElasticsearchIndices() {
         return elasticsearchIndices;
     }
 
+    /**
+     * setElasticsearchFields()
+     * 设置 elastic search 字段表信息
+     */
     private static void setElasticsearchFields () {
         elasticsearchFields = new ArrayList<>();
         elasticsearchFields.add("addr");
@@ -253,10 +307,19 @@ public class Config {
         elasticsearchFields.add("ver");
     }
 
+    /**
+     * getElasticsearchFields()
+     * 获取 elastic search 字段表信息
+     * @return elastic search 字段表信息
+     */
     public static List<String> getElasticsearchFields () {
         return elasticsearchFields;
     }
 
+    /**
+     * setElasticSearchIndexFieldDict()
+     * 加载默认配置的 elastic search 索引-可分析字段对应键值对词典
+     */
     private static void setElasticSearchIndexFieldDict () {
         elasticSearchIndexFieldDict = new HashMap<>();
         List<String> field = new ArrayList<>();
@@ -518,10 +581,20 @@ public class Config {
         elasticSearchIndexFieldDict.put("au_pkt_ssdp", field);
     }
 
+    /**
+     * getElasticSearchIndexFieldDict()
+     * 获取默认配置的 elastic search 索引-可分析字段对应键值对词典
+     * @return elastic search 索引-可分析字段对应键值对词典
+     */
     public static Map<String, List<String>> getElasticSearchIndexFieldDict () {
         return elasticSearchIndexFieldDict;
     }
 
+    /**
+     * getSparkNoticeLevel()
+     * 获取设置的Spark提示等级
+     * @return 返回Spark Log打印提示信息的等级
+     */
     public static String getSparkNoticeLevel () {
         String sparkNoticeLevel = retrieve("sparkNoticeLevel");
         if (null != sparkNoticeLevel)
@@ -529,6 +602,12 @@ public class Config {
         return "OFF";
     }
 
+    /**
+     * getFrequentPercentage()  （暂未启用）
+     * 获取配置文件中的高频次操作队列占比值
+     * 设计中：学习模式使用本值和操作队列总数确定认定操作队列为高频次队列的频率阈值
+     * @return 百分比 0~1之间（左右含）的double浮点数 其中0为透明模式，1为全记录模式
+     */
     public static double getFrequentPercentage () {
         String frequentPercentageFromFile = retrieve("fp");
         if (null == frequentPercentageFromFile)
@@ -540,6 +619,10 @@ public class Config {
         }
     }
 
+    /**
+     * setFields()
+     * 加载默认配置的全局字段列表
+     */
     private static void setFields() {
         fields = new ArrayList<>();
         fields.add("@timestamp");
@@ -652,30 +735,61 @@ public class Config {
         fields.add("i_server");
     }
 
+    /**
+     * getFields()
+     * 获取默认配置的全局字段列表
+     * @return 全局全部字段的列表（不区分是否有学习意义）
+     */
     public static List<String> getFields() {
         return fields;
     }
 
+    /**
+     * getFileDirPath()
+     * 获取学习模式结果保存地址，如果类对象中没有初始化或者人为置空时，重新加载默认配置
+     * @return 学习到的规则文件保存地址（文件夹）
+     */
     public static String getFileDirPath () {
         if (fileDirPath != null)
             setFileDirPath();
         return fileDirPath;
     }
 
+    /**
+     * setFileDirPath()
+     * 加载默认配置的检测模式文件保存地址（文件夹）
+     */
     private static void setFileDirPath () {
         fileDirPath = retrieve("fileDirPath");
         if (fileDirPath == null)
             fileDirPath = "D:\\Project\\2020\\dig-lib";
     }
 
+    /**
+     * getWebSocketIP()
+     * 获取websocket服务器（远端）IP地址
+     * @return String格式 IPv4地址
+     */
     public static String getWebSocketIP() {
         return "10.245.142.213";
     }
 
+    /**
+     * getWebSocketPort()
+     * 获取websocket服务器（远端）端口号
+     * @return int格式端口号，不超过65536（含）
+     */
     public static int getWebSocketPort() {
         return 20000;
     }
 
+    /**
+     * retrieve()
+     * 根据提供的key值查询配置文件对应项。如果不存在返回null值。
+     * 考虑配置文件读取频次，不对外部类提供该方法接口，获取对应的配置信息时应该在本类中设置对应的公有方法并调用该方法
+     * @param key 配置文件中的key
+     * @return 返回配置文件key对应的值，如果没有查询到，返回null.
+     */
     private static String retrieve(String key) {
         if (configFileAddress == null) {
             return null;

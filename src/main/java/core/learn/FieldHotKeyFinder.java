@@ -12,8 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FieldHotkeyFinder implements Serializable {
-
+public class FieldHotKeyFinder implements Serializable {
+    /**
+     *  FieldHotKeyFinder 类
+     *  该类是新版学习模式的核心类 （暂未启用）
+     *  它从RDD中获取对应的队列，统计序列出现频次，存入规则文件（以对应field命名）
+     */
     ElasticSearch es;
     ElasticDataRetrieve elasticDataRetrieve = new ElasticDataRetrieve();
     ResultBackup resultBackup = new ResultBackup();
@@ -26,16 +30,30 @@ public class FieldHotkeyFinder implements Serializable {
     List<List<String>> fieldOpcodeLists;
     List<String> fieldOpcodeList;
 
-    public FieldHotkeyFinder(ElasticSearch es) {
+    /**
+     *
+     * FieldHotKeyFinder()  （暂未启用）
+     * 初始化时注入依赖 es实例
+     * @param es
+     */
+    public FieldHotKeyFinder(ElasticSearch es) {
         this.es = es;
     }
 
+    /**
+     * learn()
+     * 学习模式主逻辑  （暂未启用）
+     * @param startTime 本轮学习的起始时间
+     * @param endTime 本轮学习的终止时间
+     */
     public void learn(Long startTime, Long endTime) {
         for (String index : indices) {
             fields = indicesFieldDict.get(index);
             if (fields == null)
                 continue;
             indexRDD = elasticDataRetrieve.retrieve(es, index, startTime, endTime);
+            if (Thread.currentThread().isInterrupted())
+                return ;
             if (indexRDD == null)
                 continue;
             if (indexRDD.count() == 0L)
