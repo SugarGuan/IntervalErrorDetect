@@ -1,13 +1,17 @@
 # 工业互联网大数据安全监测：操作序列高频检测模块 
 ~~~
 工业互联网大数据安全监测平台 - Interval Error Detect插件
+
 该插件可以检测工业互联网大数据中的高频队列
+
 该插件提供3种模式：学习模式 / 检测模式 / 清理模式
-当前版本：0.3.4 (build 17)
+
+当前版本：0.3.5 (build 18)
 ~~~
+
 自动编译信息：
 
-Travis CI [![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
+Travis  CI [![Build Status](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect.svg?branch=master)](https://www.travis-ci.org/SugarGuan/IntervalErrorDetect)     
 
 AppVeyor [![Build status](https://ci.appveyor.com/api/projects/status/fbavubt1cyl3rlmm?svg=true)](https://ci.appveyor.com/project/SugarGuan/ied)  
 
