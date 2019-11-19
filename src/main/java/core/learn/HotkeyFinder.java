@@ -89,9 +89,9 @@ public class HotkeyFinder implements Serializable {
         // remove Too Short Operation List
         removeTooShortOperationList();
         // Re-generate the frequent operation list.
-        double frequentPercentage = 0.001; //Config.getHotkeyAppearancePercentage();
-        int frequentTimes = (int) (frequentPercentage * operationCount);
-//        int frequentTimes = 10;
+//        double frequentPercentage = 0.001; //Config.getHotkeyAppearancePercentage();
+//        int frequentTimes = (int) (frequentPercentage * operationCount);
+        int frequentTimes = 10;
 
         operationLists = new ArrayList<>();
         for (List<String> key : operationDictionary.keySet()) {
@@ -99,6 +99,33 @@ public class HotkeyFinder implements Serializable {
                 operationLists.add(key);
         }
         return operationLists;
+    }
+
+    public List<Map<List<String>, Long>> getFrequentOperationListWithCounting () {
+        // Logic for Thread interrupted or not.
+        if (Thread.currentThread().isInterrupted())
+            return null;
+        // (Core)
+        // Generate the operation dictionary
+        for (List<String> operationList : operationLists) {
+            slideWindowSublist(operationList);
+        }
+        // remove Too Short Operation List
+        removeTooShortOperationList();
+        // Re-generate the frequent operation list.
+//        double frequentPercentage = 0.001; //Config.getHotkeyAppearancePercentage();
+//        int frequentTimes = (int) (frequentPercentage * operationCount);
+        int frequentTimes = 10;
+
+        List<Map<List<String>, Long>> result = new ArrayList<>();
+        for (List<String> key : operationDictionary.keySet()) {
+            if (operationDictionary.get(key) >= frequentTimes) {
+                Map<List<String>, Long> recordPair = new HashMap<>(1);
+                recordPair.put(key, operationDictionary.get(key));
+                result.add(recordPair);
+            }
+        }
+        return result;
     }
 
     public void reset () {

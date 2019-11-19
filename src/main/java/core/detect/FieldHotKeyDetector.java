@@ -1,5 +1,6 @@
 package core.detect;
 
+import dao.redis.Redis;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
 import util.Config;
@@ -27,7 +28,7 @@ public class FieldHotKeyDetector implements Serializable {
 
 
 
-    public void detect(Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap, Long detectStartTime) {
+    public void detect(Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap, Long detectStartTime, Redis redis) {
         /**
          *  检测函数逻辑：
          *  1. 初始化报警器
@@ -74,11 +75,11 @@ public class FieldHotKeyDetector implements Serializable {
                                 commandLists.add((String) map.get(field));
                             else
                                 continue;
-
-                            if (checkInfile(commandLists)) {
+                            String subOPs = checkInfile(commandLists);
+                            if (null != subOPs) {
                                 alert.report(
-                                        str,
-                                        map,
+                                        redis,
+                                        subOPs,
                                         detectStartTime,
                                         Time.now()
                                 );
@@ -91,7 +92,7 @@ public class FieldHotKeyDetector implements Serializable {
         }
     }
 
-    private boolean checkInfile(List<String> list) {
+    private String checkInfile(List<String> list) {
         /**
          *  checkInfile逻辑
          *  传入list为操作码，最长不超过20
@@ -100,7 +101,7 @@ public class FieldHotKeyDetector implements Serializable {
         int listLength = list.size();
         int i = 0;
         if (listLength == 0)
-            return false;
+            return null;
         StringBuffer sb = new StringBuffer();
         List<String> subList;
         while (i < listLength) {
@@ -110,13 +111,13 @@ public class FieldHotKeyDetector implements Serializable {
                 sb.append(",");
             }
 
-            String s = sb.toString();
+            String sub = sb.toString();
             sb.setLength(0);
-            if (lib.contains(s))
-                return true;
+            if (lib.contains(sub))
+                return sub;
             i++;
         }
-        return false;
+        return null;
     }
 
     private void alertSetter () {
@@ -134,7 +135,7 @@ public class FieldHotKeyDetector implements Serializable {
         if (field.length() < 3)
             return;
         try {
-            File file = new File("D:\\Project\\2020\\dig-lib\\" + field.substring(2) + ".iedb");
+            File file = new File(Config.getFileDirPath() + "/" + field.substring(2) + ".iedb");
 
             BufferedReader br = new BufferedReader(new FileReader(file));
             String strTemp;

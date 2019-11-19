@@ -65,28 +65,32 @@ public class Learn implements Serializable {
     public void execute (){
         queryStartTime = getQueryStartTime();
         queryFinishTime = getQueryFinishTime();
-        ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
-                dataRetrieve.retrieveAll(es, queryStartTime,queryFinishTime,500L);
+                new ElasticDataRetrieve().retrieveAll(es, queryStartTime,queryFinishTime,500L);
         if (null == esRddMap)
             return;
-        System.out.println("[INFO] Learning mode finish data retrieve. " + Time.timeFormatEnglish(Time.now() - queryStartTime));
         if (Thread.currentThread().isInterrupted())
             return;
-        System.out.println("[INFO] Learning mode training start." + Time.timeFormatEnglish(Time.now() - queryStartTime));
-        FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
-        Map<String, List<List<String>>> result = learn.execute(esRddMap);
-        if (Thread.currentThread().isInterrupted())
-            return;
-        System.out.println("[INFO] Learning mode data saving." + Time.timeFormatEnglish(Time.now() - queryStartTime));
-        ResultBackup file = new ResultBackup();
-        file.save(result);
-        System.out.println("[SUCCESS] Learning mode finish one happy trip." + Time.timeFormatEnglish(Time.now() - queryStartTime));
+        Map<String, List<List<String>>> result = learn(esRddMap);
+        fileSaving(result);
 
 //        FieldHotKeyFinder fieldHotkeyFinder = new FieldHotKeyFinder(es);
 //        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);
 //        setQueryStartTime(queryFinishTime);
+    }
 
+    private Map<String, List<List<String>>> learn (Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap) {
+        if (Thread.currentThread().isInterrupted())
+            return null;
+        FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
+        return learn.execute(esRddMap);
+    }
+
+    private void fileSaving (Map<String, List<List<String>>> result) {
+        if (Thread.currentThread().isInterrupted())
+            return;
+        ResultBackup file = new ResultBackup();
+        file.save(result);
     }
 
 }
