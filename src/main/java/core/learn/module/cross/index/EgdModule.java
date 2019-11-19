@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -38,11 +39,11 @@ public class EgdModule extends Module {
                         statusField = new ArrayList<>();
                         datalenField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            req_idField.add((String) map.get("i_req_id"));
-                            producer_idField.add((String) map.get("i_producer_id"));
-                            exchange_idField.add((String) map.get("i_exchange_id"));
-                            statusField.add((String) map.get("i_status"));
-                            datalenField.add((String) map.get("i_datalen"));
+                            req_idField.add(StringUtil.trans(map.get("i_req_id")) );
+                            producer_idField.add(StringUtil.trans(map.get("i_producer_id")) );
+                            exchange_idField.add(StringUtil.trans(map.get("i_exchange_id")) );
+                            statusField.add(StringUtil.trans(map.get("i_status")) );
+                            datalenField.add(StringUtil.trans(map.get("i_datalen")) );
                         }
                         Req_idField.append(req_idField);
                         Producer_idField.append(producer_idField);

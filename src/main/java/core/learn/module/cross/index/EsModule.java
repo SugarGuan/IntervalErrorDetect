@@ -5,6 +5,7 @@ import core.learn.field.Pkt_typeField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class EsModule extends Module {
                         pkt_typeField = new ArrayList<>();
                         jsonField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
-                            jsonField.add((String) map.get("i_json"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")));
+                            jsonField.add(StringUtil.trans(map.get("i_json")));
                         }
                         Pkt_typeField.append(pkt_typeField);
                         JsonField.append(jsonField);

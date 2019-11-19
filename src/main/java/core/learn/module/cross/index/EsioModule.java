@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -44,14 +45,14 @@ public class EsioModule extends Module {
                         hdr_flagField = new ArrayList<>();
                         data_hdrField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
-                            verField.add((String) map.get("i_ver"));
-                            trans_idField.add((String) map.get("i_trans_id"));
-                            tel_idField.add((String) map.get("i_tel_id"));
-                            src_statField.add((String) map.get("i_src_statid"));
-                            n_dataField.add((String) map.get("i_n_data"));
-                            hdr_flagField.add((String) map.get("i_hdr_flag"));
-                            data_hdrField.add((String) map.get("i_data_hdr"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")));
+                            verField.add(StringUtil.trans(map.get("i_ver")));
+                            trans_idField.add(StringUtil.trans(map.get("i_trans_id")));
+                            tel_idField.add(StringUtil.trans(map.get("i_tel_id")));
+                            src_statField.add(StringUtil.trans(map.get("i_src_statid")));
+                            n_dataField.add(StringUtil.trans(map.get("i_n_data")));
+                            hdr_flagField.add(StringUtil.trans(map.get("i_hdr_flag")));
+                            data_hdrField.add(StringUtil.trans(map.get("i_data_hdr")));
                         }
                         Pkt_typeField.append(pkt_typeField);
                         VerField.append(verField);

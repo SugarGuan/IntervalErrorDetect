@@ -59,20 +59,20 @@ public class Learn implements Serializable {
         queryStartTime = getQueryStartTime();
         queryFinishTime = getQueryFinishTime();
 
-//        ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
-//        Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
-//                dataRetrieve.retrieveAll(es, queryStartTime,queryFinishTime,500L);
-//        if (null == esRddMap)
-//            return;
-//
-//        FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
-//        Map<String, List<List<String>>> result = learn.execute(esRddMap);
-//        ResultBackup file = new ResultBackup();
-//        file.save(result);
+        ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
+        Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
+                dataRetrieve.retrieveAll(es, queryStartTime,queryFinishTime,500L);
+        if (null == esRddMap)
+            return;
 
-        FieldHotKeyFinder fieldHotkeyFinder = new FieldHotKeyFinder(es);
-        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);
-        setQueryStartTime(queryFinishTime);
+        FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
+        Map<String, List<List<String>>> result = learn.execute(esRddMap);
+        ResultBackup file = new ResultBackup();
+        file.save(result);
+
+//        FieldHotKeyFinder fieldHotkeyFinder = new FieldHotKeyFinder(es);
+//        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);
+//        setQueryStartTime(queryFinishTime);
     }
 
 }

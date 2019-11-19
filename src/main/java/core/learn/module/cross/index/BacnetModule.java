@@ -5,6 +5,7 @@ import core.learn.field.FuncField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class BacnetModule extends Module {
                         data_typeField = new ArrayList<>();
                         funcField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            data_typeField.add((String) map.get("i_data_type"));
-                            funcField.add((String) map.get("i_func"));
+                            data_typeField.add(StringUtil.trans(map.get("i_data_type")));
+                            funcField.add(StringUtil.trans(map.get("i_func")) );
                         }
                         Data_typeField.append(data_typeField);
                         FuncField.append(funcField);

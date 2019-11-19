@@ -7,6 +7,7 @@ import core.learn.field.Slave_addrField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -39,10 +40,10 @@ public class EthercatModule extends Module {
                         slave_addrField = new ArrayList<>();
                         offset_addrField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            String cmd = Long.toString((Long) map.get("i_cmd"));
-                            String cmd_str = (String) map.get("i_cmd_str");
-                            String slave_addr = Long.toString((Long) map.get("i_slave_addr"));
-                            String offset_addr = Long.toString((Long) map.get("i_offset_addr"));
+                            String cmd = StringUtil.trans(map.get("i_cmd"));
+                            String cmd_str = StringUtil.trans(map.get("i_cmd_str"));
+                            String slave_addr = StringUtil.trans(map.get("i_slave_addr"));
+                            String offset_addr = StringUtil.trans(map.get("i_offset_addr"));
 
                             if(cmdField.contains(cmd)) {
                                 CmdField.append(cmdField);

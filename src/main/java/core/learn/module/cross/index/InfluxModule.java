@@ -5,6 +5,7 @@ import core.learn.field.UrlField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class InfluxModule extends Module {
                         pkt_typeField = new ArrayList<>();
                         urlField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
-                            urlField.add((String) map.get("i_url"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")) );
+                            urlField.add(StringUtil.trans(map.get("i_url")) );
                         }
                         Pkt_typeField.append(pkt_typeField);
                         UrlField.append(urlField);

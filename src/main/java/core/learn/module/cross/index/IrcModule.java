@@ -5,6 +5,7 @@ import core.learn.field.Pkt_typeField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class IrcModule extends Module {
                         pkt_typeField = new ArrayList<>();
                         contentField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
-                            contentField.add((String) map.get("i_content"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")) );
+                            contentField.add(StringUtil.trans(map.get("i_content")) );
                         }
                         Pkt_typeField.append(pkt_typeField);
                         ContentField.append(contentField);

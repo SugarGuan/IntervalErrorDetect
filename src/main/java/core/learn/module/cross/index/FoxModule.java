@@ -4,6 +4,7 @@ import core.learn.field.DataField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class FoxModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         dataField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            dataField.add((String) map.get("i_data"));
+                            dataField.add(StringUtil.trans(map.get("i_data")));
                         }
                         DataField.append(dataField);
                         return null;

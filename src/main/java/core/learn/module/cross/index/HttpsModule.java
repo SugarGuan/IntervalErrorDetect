@@ -4,6 +4,7 @@ import core.learn.field.RdnField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class HttpsModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         rdnField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            String rdn = (String) map.get("i_rdn");
+                            String rdn = StringUtil.trans(map.get("i_rdn")) ;
                             if (rdnField.contains(rdn)) {
                                 RdnField.append(rdnField);
                                 rdnField = new ArrayList<>();

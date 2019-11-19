@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -38,11 +39,11 @@ public class Dnp3Module extends Module {
                         groupnumField = new ArrayList<>();
                         varnumField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            saddrField.add((String) map.get("i_saddr"));
-                            daddrField.add((String) map.get("i_daddr"));
-                            funcField.add((String) map.get("i_func"));
-                            groupnumField.add((String) map.get("i_groupnum"));
-                            varnumField.add((String) map.get("i_varnum"));
+                            saddrField.add(StringUtil.trans(map.get("i_saddr")));
+                            daddrField.add(StringUtil.trans(map.get("i_daddr")) );
+                            funcField.add(StringUtil.trans(map.get("i_func")));
+                            groupnumField.add(StringUtil.trans(map.get("i_groupnum") ));
+                            varnumField.add(StringUtil.trans(map.get("i_varnum")) );
                         }
                         SaddrField.append(saddrField);
                         DaddrField.append(daddrField);

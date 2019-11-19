@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -42,13 +43,13 @@ public class LontalkModule extends Module {
                         node_dField = new ArrayList<>();
                         domainField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            vendorField.add((String) map.get("i_vendor_code"));
-                            sidField.add((String) map.get("i_sid"));
-                            subnet_sField.add((String) map.get("i_subnet_s"));
-                            subnet_dField.add((String) map.get("i_subnet_d"));
-                            node_sField.add((String) map.get("i_node_s"));
-                            node_dField.add((String) map.get("i_node_d"));
-                            domainField.add((String) map.get("i_domain"));
+                            vendorField.add(StringUtil.trans(map.get("i_vendor_code")) );
+                            sidField.add(StringUtil.trans(map.get("i_sid")) );
+                            subnet_sField.add(StringUtil.trans(map.get("i_subnet_s")) );
+                            subnet_dField.add(StringUtil.trans(map.get("i_subnet_d")) );
+                            node_sField.add(StringUtil.trans(map.get("i_node_s")) );
+                            node_dField.add(StringUtil.trans(map.get("i_node_d")) );
+                            domainField.add(StringUtil.trans(map.get("i_domain")) );
                         }
                         Vendor_codeField.append(vendorField);
                         SidField.append(sidField);

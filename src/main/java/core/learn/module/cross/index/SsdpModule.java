@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -36,10 +37,10 @@ public class SsdpModule extends Module {
                         locField = new ArrayList<>();
                         serverField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
-                            ipField.add((String) map.get("i_ip"));
-                            locField.add((String) map.get("i_loc"));
-                            serverField.add((String) map.get("i_server"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")));
+                            ipField.add(StringUtil.trans(map.get("i_ip")));
+                            locField.add(StringUtil.trans(map.get("i_loc")) );
+                            serverField.add(StringUtil.trans(map.get("i_server")));
                         }
                         Pkt_typeField.append(pkt_typeField);
                         IpField.append(ipField);

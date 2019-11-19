@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -36,10 +37,10 @@ public class Eplv1Module extends Module {
                         sourceField = new ArrayList<>();
                         cmdField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            String service = (String) map.get("i_service");
-                            String dest = Long.toString((Long) map.get("i_dest"));
-                            String source = Long.toString((Long) map.get("i_source"));
-                            String cmd = (String) map.get("i_cmd");
+                            String service = StringUtil.trans(map.get("i_service")) ;
+                            String dest = StringUtil.trans(map.get("i_dest"));
+                            String source = StringUtil.trans(map.get("i_source"));
+                            String cmd = StringUtil.trans( map.get("i_cmd"));
 
                             if (serviceField.contains(service)) {
                                 ServiceField.append(serviceField);

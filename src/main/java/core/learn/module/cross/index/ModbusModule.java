@@ -5,6 +5,7 @@ import core.learn.field.FuncField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class ModbusModule extends Module {
                         funcField = new ArrayList<>();
                         addrField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            funcField.add((String) map.get("i_func"));
-                            addrField.add((String) map.get("i_addr"));
+                            funcField.add(StringUtil.trans(map.get("i_func")) );
+                            addrField.add(StringUtil.trans(map.get("i_addr")) );
                         }
                         FuncField.append(funcField);
                         AddrField.append(addrField);

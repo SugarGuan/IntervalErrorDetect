@@ -5,6 +5,7 @@ import core.learn.field.CmdField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class AmsModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         cmdField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            String cmd = (String) map.get("i_cmd");
+                            String cmd = StringUtil.trans(map.get("i_cmd"));
                             cmdField.add(cmd);
                         }
                         CmdField.append(cmdField);

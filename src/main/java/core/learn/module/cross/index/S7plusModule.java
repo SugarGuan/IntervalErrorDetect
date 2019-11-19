@@ -4,6 +4,7 @@ import core.learn.field.FunctionField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class S7plusModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         functionField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            functionField.add((String) map.get("i_function"));
+                            functionField.add(StringUtil.trans(map.get("i_function")));
                         }
                         FunctionField.append(functionField);
                         return null;

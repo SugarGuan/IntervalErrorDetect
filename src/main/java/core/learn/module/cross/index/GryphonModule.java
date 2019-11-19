@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -46,14 +47,14 @@ public class GryphonModule extends Module {
                         datalenField = new ArrayList<>();
 
                         for (Map<String, Object> map: maps) {
-                            String frame_type = (String) map.get("i_frame_type");
-                            String src = (String) map.get("i_src");
-                            String src_cid = Long.toString((Long) map.get("i_src_cid"));
-                            String dst = (String) map.get("i_dst");
-                            String dst_ch = Long.toString((Long) map.get("i_dst_ch"));
-                            String cmd = (String) map.get("i_cmd");
-                            String context = Long.toString((Long) map.get("i_context"));
-                            String datalen = Long.toString((Long) map.get("i_datalen"));
+                            String frame_type =  StringUtil.trans(map.get("i_frame_type"));
+                            String src =  StringUtil.trans(map.get("i_src"));
+                            String src_cid = StringUtil.trans(map.get("i_src_cid"));
+                            String dst =  StringUtil.trans(map.get("i_dst"));
+                            String dst_ch = StringUtil.trans(map.get("i_dst_ch"));
+                            String cmd =  StringUtil.trans(map.get("i_cmd"));
+                            String context = StringUtil.trans(map.get("i_context"));
+                            String datalen = StringUtil.trans(map.get("i_datalen"));
 
                             if (frame_typeField.contains(frame_type)) {
                                 Frame_typeField.append(frame_typeField);

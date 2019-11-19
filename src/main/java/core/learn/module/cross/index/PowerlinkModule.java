@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -42,13 +43,13 @@ public class PowerlinkModule extends Module {
                         sourceField = new ArrayList<>();
                         source_strField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            layerField.add((String) map.get("i_layer"));
-                            msgtypeField.add((String) map.get("i_msgtype"));
-                            msgtype_strField.add((String) map.get("i_msgtype_str"));
-                            destField.add((String) map.get("i_dest"));
-                            dest_strField.add((String) map.get("i_dest_str"));
-                            sourceField.add((String) map.get("i_source"));
-                            source_strField.add((String) map.get("i_source_str"));
+                            layerField.add(StringUtil.trans(map.get("i_layer")));
+                            msgtypeField.add(StringUtil.trans(map.get("i_msgtype")));
+                            msgtype_strField.add(StringUtil.trans(map.get("i_msgtype_str")));
+                            destField.add(StringUtil.trans(map.get("i_dest")));
+                            dest_strField.add(StringUtil.trans(map.get("i_dest_str")));
+                            sourceField.add(StringUtil.trans(map.get("i_source")));
+                            source_strField.add(StringUtil.trans(map.get("i_source_str")));
                         }
                         LayerField.append(layerField);
                         MsgtypeField.append(msgtypeField);

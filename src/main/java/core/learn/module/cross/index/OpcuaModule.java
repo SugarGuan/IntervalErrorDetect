@@ -4,6 +4,7 @@ import core.learn.field.ReqtypeField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class OpcuaModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         cmdField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            cmdField.add((String) map.get("i_reqtype"));
+                            cmdField.add(StringUtil.trans(map.get("i_reqtype")));
                         }
                         ReqtypeField.append(cmdField);
                         return null;

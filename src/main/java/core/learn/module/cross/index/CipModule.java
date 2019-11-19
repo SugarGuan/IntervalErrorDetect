@@ -5,6 +5,7 @@ import core.learn.field.ServiceField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class CipModule extends Module {
                         pktField = new ArrayList<>();
                         serviceField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pktField.add((String) map.get("pkt_type"));
-                            serviceField.add((String) map.get("i_service"));
+                            pktField.add(StringUtil.trans(map.get("pkt_type")) );
+                            serviceField.add(StringUtil.trans(map.get("i_service")) );
                         }
                         Pkt_typeField.append(pktField);
                         ServiceField.append(serviceField);

@@ -4,6 +4,7 @@ import core.learn.field.Pkt_typeField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -32,7 +33,7 @@ public class FtpModule extends Module {
                         // System.out.println("");
 
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")));
                         }
 
                         Pkt_typeField.append(pkt_typeField);

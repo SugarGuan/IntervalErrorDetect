@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -50,17 +51,17 @@ public class OpensafetyModule extends Module {
                         slaveField = new ArrayList<>();
                         ext_ser_idField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            data_typeField.add((String) map.get("i_data_type"));
-                            sender_idField.add((String) map.get("i_sender_id"));
-                            data_ptField.add((String) map.get("i_data_pt_id"));
-                            msgtypeField.add((String) map.get("i_msgtype"));
-                            sn_toField.add((String) map.get("i_sn_to"));
-                            sn_fromField.add((String) map.get("i_sn_from"));
-                            safezoneField.add((String) map.get("i_safezone"));
-                            dirField.add((String) map.get("i_dir"));
-                            masterField.add((String) map.get("i_master"));
-                            slaveField.add((String) map.get("i_slave"));
-                            ext_ser_idField.add((String) map.get("i_ext_ser_id"));
+                            data_typeField.add(StringUtil.trans(map.get("i_data_type")));
+                            sender_idField.add(StringUtil.trans(map.get("i_sender_id")));
+                            data_ptField.add(StringUtil.trans(map.get("i_data_pt_id")));
+                            msgtypeField.add(StringUtil.trans(map.get("i_msgtype")));
+                            sn_toField.add(StringUtil.trans(map.get("i_sn_to")));
+                            sn_fromField.add(StringUtil.trans(map.get("i_sn_from")));
+                            safezoneField.add(StringUtil.trans(map.get("i_safezone")));
+                            dirField.add(StringUtil.trans(map.get("i_dir")));
+                            masterField.add(StringUtil.trans(map.get("i_master")));
+                            slaveField.add(StringUtil.trans(map.get("i_slave")));
+                            ext_ser_idField.add(StringUtil.trans(map.get("i_ext_ser_id")));
                         }
                         Data_typeField.append(data_typeField);
                         Sender_idField.append(sender_idField);

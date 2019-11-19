@@ -4,6 +4,7 @@ import core.learn.field.TypeField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class MmsModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         typeField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            typeField.add((String) map.get("i_type"));
+                            typeField.add(StringUtil.trans(map.get("i_type")) );
                         }
                         TypeField.append(typeField);
                         return null;

@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -36,16 +37,10 @@ public class CoapModule extends Module {
                         msgidField = new ArrayList<>();
                         tokenField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            pkt_typeField.add((String) map.get("i_pkt_type"));
-                            codeField.add((String) map.get("i_code"));
-                            if (map.get("i_msgid") instanceof Long)
-                                msgidField.add(Long.toString((Long) map.get("i_msgid")));
-                            else
-                                msgidField.add((String) map.get("i_msgid"));
-                            if (map.get("i_token") instanceof Long)
-                                msgidField.add(Long.toString((Long) map.get("i_token")));
-                            else
-                                msgidField.add((String) map.get("i_token"));
+                            pkt_typeField.add(StringUtil.trans(map.get("i_pkt_type")) );
+                            codeField.add(StringUtil.trans(map.get("i_code")) );
+                            msgidField.add(StringUtil.trans(map.get("i_msgid")));
+                            msgidField.add(StringUtil.trans(map.get("i_token")));
                         }
                         Pkt_typeField.append(pkt_typeField);
                         CodeField.append(codeField);

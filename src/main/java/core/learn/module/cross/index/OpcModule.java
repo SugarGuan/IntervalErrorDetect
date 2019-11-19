@@ -5,6 +5,7 @@ import core.learn.field.MethodField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class OpcModule extends Module {
                         interfaceField = new ArrayList<>();
                         methodField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            interfaceField.add((String) map.get("i_interface"));
-                            methodField.add((String) map.get("i_method"));
+                            interfaceField.add(StringUtil.trans(map.get("i_interface")));
+                            methodField.add(StringUtil.trans(map.get("i_method")));
                         }
                         InterfaceField.append(interfaceField);
                         MethodField.append(methodField);

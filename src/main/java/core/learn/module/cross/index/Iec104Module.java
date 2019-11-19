@@ -5,6 +5,7 @@ import core.learn.field.InfoaddrField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class Iec104Module extends Module {
                         commaddrField = new ArrayList<>();
                         infoaddrField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            commaddrField.add((String) map.get("i_commaddr"));
-                            infoaddrField.add((String) map.get("i_infoaddr"));
+                            commaddrField.add(StringUtil.trans(map.get("i_commaddr")));
+                            infoaddrField.add(StringUtil.trans(map.get("i_infoaddr")));
                         }
                         CommaddrField.append(commaddrField);
                         InfoaddrField.append(infoaddrField);

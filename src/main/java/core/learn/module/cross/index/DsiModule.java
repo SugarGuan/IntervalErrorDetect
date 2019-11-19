@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -39,11 +40,11 @@ public class DsiModule extends Module {
                         datalenField = new ArrayList<>();
 
                         for (Map<String, Object> map: maps) {
-                            String flag = (String) map.get("i_flag");
-                            String cmd = (String) map.get("i_cmd");
-                            String reqid = Long.toString((Long) map.get("i_reqid"));
-                            String offset_errcode = Long.toString((Long) map.get("i_offset_errcode"));
-                            String datalen = Long.toString((Long) map.get("i_datalen"));
+                            String flag = StringUtil.trans(map.get("i_flag"));
+                            String cmd = StringUtil.trans(map.get("i_cmd")) ;
+                            String reqid = StringUtil.trans(map.get("i_reqid"));
+                            String offset_errcode = StringUtil.trans(map.get("i_offset_errcode"));
+                            String datalen = StringUtil.trans(map.get("i_datalen"));
 
                             if (flagField.contains(flag)) {
                                 FlagField.append(flagField);

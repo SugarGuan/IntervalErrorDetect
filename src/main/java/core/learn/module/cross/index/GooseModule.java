@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -52,17 +53,17 @@ public class GooseModule extends Module {
                         datalenField = new ArrayList<>();
 
                         for (Map<String, Object> map: maps) {
-                            appidField.add((String) map.get("i_appid"));
-                            gocbrefField.add((String) map.get("i_gocbref"));
-                            datsetField.add((String) map.get("i_datset"));
-                            goidField.add((String) map.get("i_goid"));
-                            stnumField.add((String) map.get("i_stnum"));
-                            sqnumField.add((String) map.get("i_sqnum"));
-                            testField.add((String) map.get("i_test"));
-                            conf_revField.add((String) map.get("i_conf_rev"));
-                            ndscomField.add((String) map.get("i_ndscom"));
-                            entry_numField.add((String) map.get("i_entry_num"));
-                            datalenField.add((String) map.get("i_datalen"));
+                            appidField.add(StringUtil.trans(map.get("i_appid")));
+                            gocbrefField.add(StringUtil.trans(map.get("i_gocbref")));
+                            datsetField.add(StringUtil.trans(map.get("i_datset")));
+                            goidField.add(StringUtil.trans(map.get("i_goid")));
+                            stnumField.add(StringUtil.trans(map.get("i_stnum")));
+                            sqnumField.add(StringUtil.trans(map.get("i_sqnum")));
+                            testField.add(StringUtil.trans(map.get("i_test")));
+                            conf_revField.add(StringUtil.trans(map.get("i_conf_rev")));
+                            ndscomField.add(StringUtil.trans(map.get("i_ndscom")));
+                            entry_numField.add(StringUtil.trans(map.get("i_entry_num")));
+                            datalenField.add(StringUtil.trans(map.get("i_datalen")));
                         }
 
                         AppidField.append(appidField);

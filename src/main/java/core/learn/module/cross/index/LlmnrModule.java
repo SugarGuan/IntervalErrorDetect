@@ -5,6 +5,7 @@ import core.learn.field.IpField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class LlmnrModule extends Module {
                         ipField = new ArrayList<>();
                         hostnameField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            ipField.add((String) map.get("i_ip"));
-                            hostnameField.add((String) map.get("i_hostname"));
+                            ipField.add(StringUtil.trans(map.get("i_ip")) );
+                            hostnameField.add(StringUtil.trans(map.get("i_hostname")) );
                         }
                         IpField.append(ipField);
                         HostnameField.append(hostnameField);

@@ -4,6 +4,7 @@ import core.learn.field.ProtoField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class Sf_haspModule extends Module {
                     public Object call(Iterable<Map<String, Object>> maps) throws Exception {
                         protoField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            protoField.add((String) map.get("i_proto"));
+                            protoField.add(StringUtil.trans(map.get("i_proto")));
                         }
                         ProtoField.append(protoField);
                         return null;

@@ -7,6 +7,7 @@ import core.learn.field.ProtoField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -39,10 +40,10 @@ public class HartipModule extends Module {
                         cmdField = new ArrayList<>();
                         protoField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            String frame_type = Long.toString((Long) map.get("i_frame_type"));
-                            String addr = Long.toString((Long) map.get("i_addr"));
-                            String cmd = Long.toString((Long) map.get("i_cmd"));
-                            String proto = (String) map.get("i_proto");
+                            String frame_type = StringUtil.trans(map.get("i_frame_type"));
+                            String addr = StringUtil.trans(map.get("i_addr"));
+                            String cmd = StringUtil.trans(map.get("i_cmd"));
+                            String proto = StringUtil.trans(map.get("i_proto"));
 
                             if (frame_typeField.contains(frame_type)) {
                                 Frame_typeField.append(frame_typeField);

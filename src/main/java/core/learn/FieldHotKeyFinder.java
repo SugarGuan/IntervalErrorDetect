@@ -94,6 +94,7 @@ public class FieldHotKeyFinder implements Serializable {
              */
 
             for (String field : fields) {
+                System.out.println("[INFO] LEARNING MODE : " + "INDEX '" + index + "' FIELD '" + field +" '");
                 fieldOpcodeLists = new ArrayList<>();
                 indexRDD.groupByKey().values().map(new Function<Iterable<Map<String, Object>>, Object>() {
                     @Override

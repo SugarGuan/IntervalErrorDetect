@@ -5,6 +5,7 @@ import core.learn.field.QqidField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class OicqModule extends Module {
                         cmdField = new ArrayList<>();
                         qqidField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            cmdField.add((String) map.get("i_cmd"));
-                            qqidField.add((String) map.get("i_qqid"));
+                            cmdField.add(StringUtil.trans(map.get("i_cmd")));
+                            qqidField.add(StringUtil.trans(map.get("i_qqid")));
                         }
                         CmdField.append(cmdField);
                         QqidField.append(qqidField);

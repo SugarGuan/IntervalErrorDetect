@@ -29,7 +29,7 @@ public class SercosiiiModule extends Module {
 //                    public Object call(Iterable<Map<String, Object>> maps) throws Exception {
 //                        cmdField = new ArrayList<>();
 //                        for (Map<String, Object> map: maps) {
-//                            cmdField.add((String) map.get("i_cmd"));
+//                            cmdField.add(StringUtil.trans(map.get("i_cmd")));
 //                        }
 //                        CmdField.append(cmdField);
 //                        return null;

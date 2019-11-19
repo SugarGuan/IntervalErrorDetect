@@ -5,6 +5,7 @@ import core.learn.field.Pkt_typeField;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -33,8 +34,8 @@ public class EthernetipModule extends Module {
                         cmdField = new ArrayList<>();
                         pkt_typeField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            String cmd = (String) map.get("i_cmd");
-                            String pkt_type = (String) map.get("pkt_type");
+                            String cmd = StringUtil.trans(map.get("i_cmd"));
+                            String pkt_type = StringUtil.trans(map.get("pkt_type"));
 
                             if (cmdField.contains(cmd)){
                                 CmdField.append(cmdField);

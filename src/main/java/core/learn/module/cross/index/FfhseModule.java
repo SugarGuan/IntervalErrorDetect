@@ -4,6 +4,7 @@ import core.learn.field.*;
 import core.learn.module.Module;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.Function;
+import util.StringUtil;
 
 import java.util.*;
 
@@ -38,11 +39,11 @@ public class FfhseModule extends Module {
                         serviceField = new ArrayList<>();
                         fda_addrField = new ArrayList<>();
                         for (Map<String, Object> map: maps) {
-                            protoField.add((String) map.get("i_proto"));
-                            msgtypeField.add((String) map.get("i_msgtype"));
-                            confirmField.add((String) map.get("i_confirm"));
-                            serviceField.add((String) map.get("i_service"));
-                            fda_addrField.add((String) map.get("i_fda_addr"));
+                            protoField.add(StringUtil.trans(map.get("i_proto")));
+                            msgtypeField.add(StringUtil.trans(map.get("i_msgtype")));
+                            confirmField.add(StringUtil.trans(map.get("i_confirm")));
+                            serviceField.add(StringUtil.trans(map.get("i_service")));
+                            fda_addrField.add(StringUtil.trans(map.get("i_fda_addr")));
                         }
                         ProtoField.append(protoField);
                         MsgtypeField.append(msgtypeField);
