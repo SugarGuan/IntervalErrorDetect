@@ -64,11 +64,18 @@ public class Learn implements Serializable {
                 dataRetrieve.retrieveAll(es, queryStartTime,queryFinishTime,500L);
         if (null == esRddMap)
             return;
-
+        System.out.println("[INFO] Learning mode finish data retrieve.");
+        if (Thread.currentThread().isInterrupted())
+            return;
+        System.out.println("[INFO] Learning mode training start.");
         FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
         Map<String, List<List<String>>> result = learn.execute(esRddMap);
+        if (Thread.currentThread().isInterrupted())
+            return;
+        System.out.println("[INFO] Learning mode data saving.");
         ResultBackup file = new ResultBackup();
         file.save(result);
+        System.out.println("[SUCCESS] Learning mode finish one happy trip.");
 
 //        FieldHotKeyFinder fieldHotkeyFinder = new FieldHotKeyFinder(es);
 //        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);
