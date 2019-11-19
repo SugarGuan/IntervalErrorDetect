@@ -5,6 +5,7 @@ import core.learn.FieldHotkeyFindLoader;
 import dao.elsaticsearch.ElasticSearch;
 import org.apache.spark.SparkException;
 import org.apache.spark.api.java.JavaPairRDD;
+import util.Config;
 import util.file.ResultBackup;
 import util.spark.ElasticDataRetrieve;
 import util.Time;
@@ -50,11 +51,15 @@ public class Learn implements Serializable {
     }
 
     public void autorun () throws InterruptedException{
-
-//        Thread.sleep();
+        while(!Thread.currentThread().isInterrupted()) {
             jobStartTime = Time.now();
             execute();
             jobFinishTime = Time.now();
+            // 单位为毫秒，1s = 1000ms
+            Thread.sleep(Config.getSleepTime() * 1000);
+        }
+//        Thread.sleep();
+
     }
 
     public void execute (){
@@ -65,18 +70,18 @@ public class Learn implements Serializable {
                 dataRetrieve.retrieveAll(es, queryStartTime,queryFinishTime,500L);
         if (null == esRddMap)
             return;
-        System.out.println("[INFO] Learning mode finish data retrieve.");
+        System.out.println("[INFO] Learning mode finish data retrieve. " + Time.timeFormatEnglish(Time.now() - queryStartTime));
         if (Thread.currentThread().isInterrupted())
             return;
-        System.out.println("[INFO] Learning mode training start.");
+        System.out.println("[INFO] Learning mode training start." + Time.timeFormatEnglish(Time.now() - queryStartTime));
         FieldHotkeyFindLoader learn = new FieldHotkeyFindLoader();
         Map<String, List<List<String>>> result = learn.execute(esRddMap);
         if (Thread.currentThread().isInterrupted())
             return;
-        System.out.println("[INFO] Learning mode data saving.");
+        System.out.println("[INFO] Learning mode data saving." + Time.timeFormatEnglish(Time.now() - queryStartTime));
         ResultBackup file = new ResultBackup();
         file.save(result);
-        System.out.println("[SUCCESS] Learning mode finish one happy trip.");
+        System.out.println("[SUCCESS] Learning mode finish one happy trip." + Time.timeFormatEnglish(Time.now() - queryStartTime));
 
 //        FieldHotKeyFinder fieldHotkeyFinder = new FieldHotKeyFinder(es);
 //        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);

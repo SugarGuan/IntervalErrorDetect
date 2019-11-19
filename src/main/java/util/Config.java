@@ -838,6 +838,22 @@ public class Config {
     }
 
     /**
+     * 获取睡眠时间
+     * @return 不同模式下所允许的睡眠时长，单位为秒。
+     */
+    public static int getSleepTime() {
+        String sleepTime = retrieve("time_interval");
+        if (sleepTime == null)
+            return 300;
+        try {
+            return Integer.parseInt(sleepTime);
+        } catch (Exception e) {
+            return 300;
+        }
+
+    }
+
+    /**
      * retrieve()
      * 根据提供的key值查询配置文件对应项。如果不存在返回null值。
      * 考虑配置文件读取频次，不对外部类提供该方法接口，获取对应的配置信息时应该在本类中设置对应的公有方法并调用该方法

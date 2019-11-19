@@ -3,6 +3,7 @@ package core;
 import core.detect.FieldHotKeyDetector;
 import dao.elsaticsearch.ElasticSearch;
 import org.apache.spark.api.java.JavaPairRDD;
+import util.Config;
 import util.spark.ElasticDataRetrieve;
 import util.Time;
 
@@ -27,9 +28,14 @@ public class Detect implements Serializable {
     }
 
     public void autorun () throws InterruptedException {
+        while(!Thread.currentThread().isInterrupted()) {
             jobStartTime = Time.now();
             execute();
             jobFinishTime = Time.now();
+            // 单位为毫秒，1s = 1000ms
+            Thread.sleep(Config.getSleepTime() * 1000);
+        }
+
     }
 
     public void execute () throws InterruptedException {
