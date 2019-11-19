@@ -3,6 +3,7 @@ package dao.redis;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import util.Config;
 
 import java.io.Serializable;
 
@@ -24,10 +25,10 @@ public class Redis implements Serializable {
      * 设置Redis的地址、最大连接数和最大活跃数
      */
     public Redis() {
-        this.redisAddr = "10.245.142.213";
-        this.redisPort = 6380;
-        this.maxTotal = 20;
-        this.maxIdle = 15;
+        this.redisAddr = Config.getRedisIP();
+        this.redisPort = Config.getRedisPort();
+        this.maxTotal = Config.getRedisMaxTotal();
+        this.maxIdle = Config.getRedisMaxIdle();
         setRedisPool();
     }
 

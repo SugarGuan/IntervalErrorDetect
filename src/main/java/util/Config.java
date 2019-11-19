@@ -16,7 +16,8 @@ public class Config {
      * 全局配置信息表类，提供启动后默认配置信息的查询，配置信息的更新，配置文件读取方法等
      */
 
-    private static String configFileAddress = "D:\\Project\\2020\\conf.conf";
+//    private static String configFileAddress = "/root/napp/ad_cycledetect/cycledetect.cfg";
+    private static String configFileAddress = "D:\\Project\\2020\\IntervalErrorDetect\\config.cfg";
     private static String codingBy = "UTF-8";
     private static Map<String, Integer> dialogIndexMap;
     private static List<String> elasticsearchIndices;
@@ -760,9 +761,10 @@ public class Config {
      * 加载默认配置的检测模式文件保存地址（文件夹）
      */
     private static void setFileDirPath () {
-        fileDirPath = retrieve("fileDirPath");
+        fileDirPath = retrieve("LearningMode_FileDir");
         if (fileDirPath == null)
-            fileDirPath = "D:\\Project\\2020\\dig-lib";
+//            fileDirPath = "/root/napp/ad_cycledetect/rule";
+            fileDirPath  = "D:\\Project\\2020\\dig-lib";
     }
 
     /**
@@ -771,6 +773,9 @@ public class Config {
      * @return String格式 IPv4地址
      */
     public static String getWebSocketIP() {
+        String websocketIP = retrieve("websocket_ip");
+        if (websocketIP != null)
+            return websocketIP ;
         return "10.245.142.213";
     }
 
@@ -780,7 +785,56 @@ public class Config {
      * @return int格式端口号，不超过65536（含）
      */
     public static int getWebSocketPort() {
+        String websocketPort = retrieve("websocket_port");
+        if (websocketPort != null)
+            return Integer.parseInt(websocketPort) ;
         return 20000;
+    }
+
+    /**
+     * getRedisIP()
+     * 获取redis数据库IP地址的静态方法，默认返回10.245.142.213
+     * @return redis数据库IP地址
+     */
+    public static String getRedisIP() {
+        String redisIP = retrieve("redis_ip");
+        if (redisIP != null)
+            return redisIP ;
+        return "10.245.142.213";
+    }
+
+    /**
+     * getRedisPort()
+     * 获取redis数据库端口号，默认返回6380
+     * @return redis端口
+     */
+    public static int getRedisPort() {
+        String redisPort = retrieve("redis_port");
+        if (redisPort != null)
+            return Integer.parseInt(redisPort);
+        return 6380;
+    }
+
+    /**
+     * getRedisMaxTotal()
+     * @return 返回线程池同时可运行的最大线程数
+     */
+    public static int getRedisMaxTotal () {
+        String redisMaxTotal = retrieve("redis_max_total");
+        if (redisMaxTotal != null)
+            return Integer.parseInt(redisMaxTotal);
+        return 20;
+    }
+
+    /**
+     * getMaxIdle()
+     * @return 返回线程池最多运行并发的线程数
+     */
+    public static int getRedisMaxIdle () {
+        String redisMaxIdle = retrieve("redis_max_idle");
+        if (redisMaxIdle != null)
+            return Integer.parseInt(redisMaxIdle);
+        return 15;
     }
 
     /**

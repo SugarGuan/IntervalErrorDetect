@@ -148,9 +148,9 @@ public class Switch {
 //                System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
             }
         };
-        if (mode == "C")
+        if (mode.equals("C"))
             return clean;
-        if (mode == "L")
+        if (mode.equals("L"))
             return learn;
         return detect;
     }
