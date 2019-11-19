@@ -7,7 +7,7 @@
 
     <groupId>org.hit.inet</groupId>
     <artifactId>IntervalErrorDetect</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.12</version>
     <name>Industrial Internet (IoT) Big Data Security Monitoring Interval Error Detect Plugin</name>
     <description>
         ```
