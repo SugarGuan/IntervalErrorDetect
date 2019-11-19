@@ -16,8 +16,8 @@ public class Config {
      * 全局配置信息表类，提供启动后默认配置信息的查询，配置信息的更新，配置文件读取方法等
      */
 
-//    private static String configFileAddress = "/root/napp/ad_cycledetect/cycledetect.cfg";
-    private static String configFileAddress = "D:\\Project\\2020\\IntervalErrorDetect\\config.cfg";
+    private static String configFileAddress = "/root/napp/ad_cycledetect/cycledetect.cfg";
+//    private static String configFileAddress = "D:\\Project\\2020\\IntervalErrorDetect\\config.cfg";
     private static String codingBy = "UTF-8";
     private static Map<String, Integer> dialogIndexMap;
     private static List<String> elasticsearchIndices;
@@ -763,8 +763,8 @@ public class Config {
     private static void setFileDirPath () {
         fileDirPath = retrieve("LearningMode_FileDir");
         if (fileDirPath == null)
-//            fileDirPath = "/root/napp/ad_cycledetect/rule";
-            fileDirPath  = "D:\\Project\\2020\\dig-lib";
+            fileDirPath = "/root/napp/ad_cycledetect/rule";
+//            fileDirPath  = "D:\\Project\\2020\\dig-lib";
     }
 
     /**
