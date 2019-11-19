@@ -13,12 +13,15 @@ import java.util.Map;
 public class FieldHotkeyFindLoader {
 
     /**
-     * execute手动指定了field和index的关系。** 这里有待改进
-     * @param rddMap
-     * @return
+     * FieldHotkeyFinder 类
+     * 是Field字段发现的核心类、控制器类，提供了统计学习的入口方法。
      */
 
-
+    /**
+     * execute手动指定了field和index的关系。** 这里有待改进
+     * @param rddMap rdd集合
+     * @return 学习到的高频操作队列
+     */
     public Map<String, List<List<String>>> execute(Map<String, JavaPairRDD<String, Map<String, Object>>> rddMap) {
         List<Module> indicesModule = new ArrayList<>();
         // Indices :

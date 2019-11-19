@@ -24,14 +24,17 @@ public class Learn implements Serializable {
      *  7. 调用学习组件，统计操作队列发生频率
      *  8. file.save(result)方法将学习结果本地化保存在规则文件中
      */
+
     private Long queryStartTime = 0L;
     private Long queryFinishTime = 0L;
     private Long jobStartTime = 0L;
     private Long jobFinishTime = 0L;
     private ElasticSearch es ;
+
     public Learn(ElasticSearch es) {
         this.es = es;
     }
+
     private Long getQueryStartTime () {
         return queryStartTime;
     }

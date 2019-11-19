@@ -16,9 +16,9 @@ public class Switch {
      * Switch 类
      * 该类提供下述功能：
      * 1.将当前执行的模式线程interrupt（置中段位）
-     *      * 3.创建对应模式的线程并切换至启动对应模式的逻辑
-     *      * 4.如果对应模式只执行一次，则负责接管切换回原模式的逻辑
-     *      * 5.切换模式是根据websocket发来的指令消息切换，负责向redis发送指令响应消息
+     * 2.创建对应模式的线程并切换至启动对应模式的逻辑
+     * 3.如果对应模式只执行一次，则负责接管切换回原模式的逻辑
+     * 4.切换模式是根据websocket发来的指令消息切换，负责向redis发送指令响应消息
      */
 
 
@@ -110,7 +110,8 @@ public class Switch {
     }
 
     /**
-     * getModeRunnable 方法根据提供的模式信息返回对应模式的执行线程逻辑（runnable对象）
+     * getModeRunnable()
+     * 方法根据提供的模式信息返回对应模式的执行线程逻辑（runnable对象）
      * @param mode 模式名
      * @return 对应模式的Runnable对象
      */
