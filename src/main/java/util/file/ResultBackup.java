@@ -15,7 +15,7 @@ public class ResultBackup implements Serializable {
      * 包括保存文件、移除重复键等功能
      */
     Logger logger = LoggerFactory.getLogger(ResultBackup.class);
-    private final String dirPath = Config.getFileDirPath() + "\\";
+    private final String dirPath = Config.getFileDirPath() + "/";
 
     /**
      * save()
