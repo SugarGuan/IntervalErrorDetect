@@ -3,6 +3,7 @@ package core;
 import core.learn.FieldHotKeyFinder;
 import core.learn.FieldHotkeyFindLoader;
 import dao.elsaticsearch.ElasticSearch;
+import org.apache.spark.SparkException;
 import org.apache.spark.api.java.JavaPairRDD;
 import util.file.ResultBackup;
 import util.spark.ElasticDataRetrieve;
@@ -49,6 +50,7 @@ public class Learn implements Serializable {
     }
 
     public void autorun () throws InterruptedException{
+
 //        Thread.sleep();
             jobStartTime = Time.now();
             execute();
@@ -58,7 +60,6 @@ public class Learn implements Serializable {
     public void execute (){
         queryStartTime = getQueryStartTime();
         queryFinishTime = getQueryFinishTime();
-
         ElasticDataRetrieve dataRetrieve = new ElasticDataRetrieve();
         Map<String, JavaPairRDD<String, Map<String, Object>>> esRddMap =
                 dataRetrieve.retrieveAll(es, queryStartTime,queryFinishTime,500L);
@@ -80,6 +81,7 @@ public class Learn implements Serializable {
 //        FieldHotKeyFinder fieldHotkeyFinder = new FieldHotKeyFinder(es);
 //        fieldHotkeyFinder.learn(queryStartTime, queryFinishTime);
 //        setQueryStartTime(queryFinishTime);
+
     }
 
 }

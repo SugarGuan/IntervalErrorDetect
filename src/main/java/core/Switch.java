@@ -2,6 +2,7 @@ package core;
 
 import dao.elsaticsearch.ElasticSearch;
 import dao.redis.Redis;
+import org.apache.spark.SparkException;
 
 public class Switch {
     private StringBuffer nowFlag = new StringBuffer();
@@ -127,7 +128,7 @@ public class Switch {
                     learner.autorun();
                 }
                 System.out.println("Learning mode off");
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
 
             }
         };
@@ -143,7 +144,7 @@ public class Switch {
                     detector.autorun();
                 }
                 System.out.println("Detecting mode off");
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
 //                System.out.println("Thread running error: Excepted interrupt.");
 //                System.out.println("Error occurs when application running " + Time.timeFormatEnglish(Time.now() - start) + "later.");
             }
