@@ -29,7 +29,7 @@ public class Alerter implements Serializable {
      * @param startTime : 存有异常记录的发生时间戳
      * @param endTime : 存有异常记录检测到的时间戳
      */
-    public void report(Redis redis, String field, List<String> subOPs, Long occurCounting, Long startTime, Long endTime) {
+    private void report(Redis redis, String field, List<String> subOPs, Long occurCounting, Long startTime, Long endTime) {
         if (redis == null)
             return;
         if (subOPs == null)
@@ -39,7 +39,7 @@ public class Alerter implements Serializable {
         System.out.println("ad_log_cycledetect|" + json);
     }
 
-    public void report(Redis redis, String subOPs, Long startTime, Long endTime) {
+    void report(Redis redis, String subOPs, Long startTime, Long endTime) {
         if (redis == null)
             return;
         if (subOPs == null)
@@ -117,15 +117,36 @@ public class Alerter implements Serializable {
         if (result.size() == 0)
             return;
 
+        Long start = Time.now();
+        int i = 0;
         for (String field : result.keySet()) {
-//            public void report(Redis redis, String field, List<String> subOPs, Long occurCounting, Long startTime, Long endTime) {
+            if (Thread.currentThread().isInterrupted())
+                return;
             for (Map<List<String>, Long> opCount : result.get(field)){
+                if (Thread.currentThread().isInterrupted())
+                    return;
                 for (List<String> op : opCount.keySet())
-                    report(redis , field , op , opCount.get(op), startTime, Time.now());
+                    if (i < 10) {
+                        i++;
+                        if (Thread.currentThread().isInterrupted())
+                            return;
+                        report(redis , field , op , opCount.get(op), startTime, Time.now());
+                    } else {
+                        try {
+                            if (Time.now() - start < (60000)) {
+                                Thread.sleep(Time.now() - start);
+                                i = 0;
+                            }
+
+
+                        } catch (InterruptedException e) {
+                            // System do not interrupt any thing
+                        }
+                    }
             }
         }
-
-
     }
+
+
 
 }

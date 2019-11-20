@@ -99,6 +99,11 @@ public class Redis implements Serializable {
      * @param value 值
      */
     public void insertRedisList(String list, String value) {
+        if (list == null)
+            return ;
+        if (value == null)
+            return ;
+
         if (jedis==null)
             jedis = getRedisInstanceFromPool();
 //        System.out.println("-----------------------");
@@ -107,7 +112,6 @@ public class Redis implements Serializable {
 //        System.out.println(value);
         jedis.lpush(list,value);
 //        System.out.println("-----------------------");
-
     }
 
     public void insertRedisList(String list, Long value) {
